@@ -1,4 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
+import { promises as fs } from "fs";
+import path from "path";
+
+const SUBSCRIBERS_PATH = path.join(process.cwd(), "data", "subscribers.json");
+
+interface Subscriber {
+  email: string;
+  subscribedAt: string;
+}
+
+async function readSubscribers(): Promise<Subscriber[]> {
+  try {
+    const data = await fs.readFile(SUBSCRIBERS_PATH, "utf-8");
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+}
+
+async function writeSubscribers(subscribers: Subscriber[]): Promise<void> {
+  await fs.writeFile(SUBSCRIBERS_PATH, JSON.stringify(subscribers, null, 2));
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,26 +33,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Supabase integration — uncomment and add env vars when ready:
-    //
-    // const supabaseUrl = process.env.SUPABASE_URL!;
-    // const supabaseKey = process.env.SUPABASE_ANON_KEY!;
-    // const { createClient } = await import("@supabase/supabase-js");
-    // const supabase = createClient(supabaseUrl, supabaseKey);
-    //
-    // const { error } = await supabase
-    //   .from("subscribers")
-    //   .insert({ email, subscribed_at: new Date().toISOString() });
-    //
-    // if (error) {
-    //   if (error.code === "23505") {
-    //     return NextResponse.json({ message: "Already subscribed" });
-    //   }
-    //   throw error;
-    // }
+    const normalizedEmail = email.trim().toLowerCase();
+    const subscribers = await readSubscribers();
 
-    // For now, just log and return success
-    console.log(`[Subscribe] ${email}`);
+    if (subscribers.some((s) => s.email === normalizedEmail)) {
+      return NextResponse.json({ message: "Already subscribed" });
+    }
+
+    subscribers.push({
+      email: normalizedEmail,
+      subscribedAt: new Date().toISOString(),
+    });
+
+    await writeSubscribers(subscribers);
+
+    console.log(`[Subscribe] ${normalizedEmail} (total: ${subscribers.length})`);
 
     return NextResponse.json({ message: "Subscribed" });
   } catch {

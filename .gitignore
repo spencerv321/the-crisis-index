@@ -32,6 +32,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# subscriber data
+data/subscribers.json
+
 # vercel
 .vercel
 

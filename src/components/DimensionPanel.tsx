@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { Lens } from "@/data/lenses";
 import ScoreRing from "./ScoreRing";
 import SpectrumBar from "./SpectrumBar";
@@ -154,12 +155,12 @@ export default function DimensionPanel({
       <div
         className="overflow-hidden transition-all duration-500"
         style={{
-          maxHeight: expanded ? 300 : 0,
+          maxHeight: expanded ? 400 : 0,
           opacity: expanded ? 1 : 0,
         }}
       >
         <div
-          className="px-5 pb-5 pt-3"
+          className="px-5 pb-4 pt-3"
           style={{ borderTop: `1px solid ${accentBg}0.08)` }}
         >
           <p
@@ -173,6 +174,18 @@ export default function DimensionPanel({
           >
             {lens.editorial}
           </p>
+          <Link
+            href={`/lens/${lens.id}`}
+            className="font-data inline-block mt-3 transition-opacity duration-300 hover:opacity-80"
+            style={{
+              fontSize: "0.6rem",
+              color: accent,
+              letterSpacing: "0.06em",
+              textDecoration: "none",
+            }}
+          >
+            READ THE FULL DEEP DIVE &rarr;
+          </Link>
         </div>
       </div>
       <div

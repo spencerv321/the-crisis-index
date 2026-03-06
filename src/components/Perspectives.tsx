@@ -31,7 +31,7 @@ export default function Perspectives() {
         {PERSPECTIVES.map((p, i) => (
           <div
             key={i}
-            className="border rounded-lg p-4"
+            className="border rounded-lg p-4 overflow-hidden"
             style={{
               borderColor: "rgba(201,127,74,0.06)",
               background: "rgba(17,24,39,0.4)",
@@ -59,7 +59,7 @@ export default function Perspectives() {
               </span>
             </div>
             <p
-              className="font-editorial"
+              className="font-editorial break-words"
               style={{
                 fontSize: "0.8rem",
                 color: "rgba(232,224,212,0.5)",
