@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LENSES } from "@/data/lenses";
 import { DEEP_DIVES } from "@/data/deep-dives";
+import { getLens } from "@/lib/data";
 import LensDeepDive from "@/components/LensDeepDive";
 
 interface Props {
@@ -14,7 +15,15 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const lens = LENSES.find((l) => l.id === id);
+
+  // Try DB first, fall back to static
+  let lens;
+  try {
+    lens = await getLens(id);
+  } catch {
+    lens = LENSES.find((l) => l.id === id) || null;
+  }
+
   if (!lens) return {};
 
   return {
@@ -37,7 +46,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LensPage({ params }: Props) {
   const { id } = await params;
-  const lens = LENSES.find((l) => l.id === id);
+
+  // Try DB first, fall back to static
+  let lens;
+  try {
+    lens = await getLens(id);
+  } catch {
+    lens = LENSES.find((l) => l.id === id) || null;
+  }
+
   const deepDive = DEEP_DIVES[id];
 
   if (!lens || !deepDive) notFound();

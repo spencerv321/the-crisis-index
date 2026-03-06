@@ -1,10 +1,16 @@
 "use client";
 
-import { SHOCK_EVENTS, LENSES } from "@/data/lenses";
-import type { ShockEvent as ShockEventType } from "@/data/lenses";
+import { SHOCK_EVENTS as STATIC_EVENTS, LENSES as STATIC_LENSES } from "@/data/lenses";
+import type { ShockEvent as ShockEventType, Lens } from "@/data/lenses";
 
-function ShockEventItem({ event }: { event: ShockEventType }) {
-  const lens = LENSES.find((l) => l.id === event.lens);
+function ShockEventItem({
+  event,
+  lenses,
+}: {
+  event: ShockEventType;
+  lenses: Lens[];
+}) {
+  const lens = lenses.find((l) => l.id === event.lens);
   const accent = lens?.tier === 1 ? "#c97f4a" : "#4a7c9e";
 
   return (
@@ -69,7 +75,15 @@ function ShockEventItem({ event }: { event: ShockEventType }) {
   );
 }
 
-export default function ShockEvents() {
+interface Props {
+  events?: ShockEventType[];
+  lenses?: Lens[];
+}
+
+export default function ShockEvents({ events, lenses }: Props) {
+  const shockEvents = events || STATIC_EVENTS;
+  const allLenses = lenses || STATIC_LENSES;
+
   return (
     <section className="py-4">
       <h2
@@ -101,8 +115,8 @@ export default function ShockEvents() {
           border: "1px solid rgba(201,127,74,0.06)",
         }}
       >
-        {SHOCK_EVENTS.map((e, i) => (
-          <ShockEventItem key={i} event={e} />
+        {shockEvents.map((e, i) => (
+          <ShockEventItem key={i} event={e} lenses={allLenses} />
         ))}
       </div>
     </section>

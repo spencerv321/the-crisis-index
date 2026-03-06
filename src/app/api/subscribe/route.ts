@@ -1,26 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const SUBSCRIBERS_PATH = path.join(process.cwd(), "data", "subscribers.json");
-
-interface Subscriber {
-  email: string;
-  subscribedAt: string;
-}
-
-async function readSubscribers(): Promise<Subscriber[]> {
-  try {
-    const data = await fs.readFile(SUBSCRIBERS_PATH, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-async function writeSubscribers(subscribers: Subscriber[]): Promise<void> {
-  await fs.writeFile(SUBSCRIBERS_PATH, JSON.stringify(subscribers, null, 2));
-}
+import { addSubscriber } from "@/lib/data";
+import { recordEvent } from "@/lib/analytics";
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,23 +14,19 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedEmail = email.trim().toLowerCase();
-    const subscribers = await readSubscribers();
+    const result = await addSubscriber(normalizedEmail);
 
-    if (subscribers.some((s) => s.email === normalizedEmail)) {
+    if (result === "exists") {
       return NextResponse.json({ message: "Already subscribed" });
     }
 
-    subscribers.push({
-      email: normalizedEmail,
-      subscribedAt: new Date().toISOString(),
-    });
+    // Fire-and-forget event tracking
+    recordEvent("subscribe").catch(() => {});
 
-    await writeSubscribers(subscribers);
-
-    console.log(`[Subscribe] ${normalizedEmail} (total: ${subscribers.length})`);
-
+    console.log(`[Subscribe] ${normalizedEmail}`);
     return NextResponse.json({ message: "Subscribed" });
-  } catch {
+  } catch (err) {
+    console.error("[Subscribe] Error:", err);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

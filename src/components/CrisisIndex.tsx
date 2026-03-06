@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { LENSES, getRegime } from "@/data/lenses";
+import { LENSES as STATIC_LENSES, SHOCK_EVENTS as STATIC_EVENTS, getRegime } from "@/data/lenses";
+import type { Lens, ShockEvent } from "@/data/lenses";
 import ScoreRing from "./ScoreRing";
 import LensToggle from "./LensToggle";
 import ConvergenceMeter from "./ConvergenceMeter";
@@ -11,7 +12,15 @@ import HistoricalTable from "./HistoricalTable";
 import Perspectives from "./Perspectives";
 import EmailCapture from "./EmailCapture";
 
-export default function CrisisIndex() {
+interface Props {
+  lenses?: Lens[];
+  shockEvents?: ShockEvent[];
+}
+
+export default function CrisisIndex({ lenses, shockEvents }: Props) {
+  const LENSES = lenses || STATIC_LENSES;
+  const events = shockEvents || STATIC_EVENTS;
+
   const [activeIds, setActiveIds] = useState<Set<string>>(
     new Set(LENSES.map((l) => l.id))
   );
@@ -295,7 +304,7 @@ export default function CrisisIndex() {
 
         {divider}
 
-        <ShockEvents />
+        <ShockEvents events={events} lenses={LENSES} />
 
         {divider}
 
