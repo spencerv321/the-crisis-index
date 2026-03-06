@@ -9,9 +9,13 @@ export function getPool(): Pool | null {
     pool = new Pool({
       connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
-      max: 5,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
+      max: 3,
+      idleTimeoutMillis: 10000,
+      connectionTimeoutMillis: 10000,
+    });
+
+    pool.on("error", (err) => {
+      console.error("[DB] Pool error:", err.message);
     });
   }
 

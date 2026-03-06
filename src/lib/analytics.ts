@@ -43,18 +43,17 @@ export async function recordEvent(action: string): Promise<void> {
 // ── Querying ────────────────────────────────────────────────
 
 export async function getStats() {
-  const [todayStats, lifetimeStats, subscriberCount] = await Promise.all([
-    query(
-      `SELECT COALESCE(page_views, 0) as page_views, COALESCE(unique_visitors, 0) as unique_visitors
-       FROM daily_stats WHERE date = CURRENT_DATE`
-    ),
-    query(
-      `SELECT COALESCE(SUM(page_views), 0) as total_views,
-              COALESCE(SUM(unique_visitors), 0) as total_visitors
-       FROM daily_stats`
-    ),
-    query(`SELECT COUNT(*) as count FROM subscribers`),
-  ]);
+  // Run sequentially — serverless cold starts can't handle many parallel connections
+  const todayStats = await query(
+    `SELECT COALESCE(page_views, 0) as page_views, COALESCE(unique_visitors, 0) as unique_visitors
+     FROM daily_stats WHERE date = CURRENT_DATE`
+  );
+  const lifetimeStats = await query(
+    `SELECT COALESCE(SUM(page_views), 0) as total_views,
+            COALESCE(SUM(unique_visitors), 0) as total_visitors
+     FROM daily_stats`
+  );
+  const subscriberCount = await query(`SELECT COUNT(*) as count FROM subscribers`);
 
   const today = todayStats.rows[0] || { page_views: 0, unique_visitors: 0 };
   const lifetime = lifetimeStats.rows[0] || { total_views: 0, total_visitors: 0 };
@@ -159,12 +158,10 @@ export async function getGeoStats(days = 30) {
 }
 
 export async function getSubscriberStats() {
-  const [total, recent] = await Promise.all([
-    query("SELECT COUNT(*) as count FROM subscribers"),
-    query(
-      "SELECT email, subscribed_at FROM subscribers ORDER BY subscribed_at DESC LIMIT 10"
-    ),
-  ]);
+  const total = await query("SELECT COUNT(*) as count FROM subscribers");
+  const recent = await query(
+    "SELECT email, subscribed_at FROM subscribers ORDER BY subscribed_at DESC LIMIT 10"
+  );
 
   return {
     total: parseInt(total.rows[0].count, 10),
