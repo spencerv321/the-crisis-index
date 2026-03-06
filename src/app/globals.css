@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #0a0f1a;
+  --color-text-primary: #e8e0d4;
+  --color-copper: #c97f4a;
+  --color-steel: #4a7c9e;
+  --color-regime-stable: #6a8a72;
+  --color-regime-stress: #a0a060;
+  --color-regime-late: #c9a84a;
+  --color-regime-crisis: #c97f4a;
+  --color-regime-break: #c44a2e;
+}
+
+/* Font utility classes — Next.js sets --font-playfair, --font-lora, --font-mono on <html> */
+.font-display {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+}
+.font-editorial {
+  font-family: var(--font-lora), "Lora", Georgia, serif;
+}
+.font-data {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0a0f1a;
+  color: #e8e0d4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 127, 74, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 127, 74, 0.25);
+}
+
+/* Animated score pulse */
+@keyframes scorePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Smooth gradient animation for atmosphere */
+@keyframes atmosphereShift {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
