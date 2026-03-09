@@ -497,13 +497,13 @@ export const LENSES: Lens[] = [
   {
     id: "geopolitical",
     tier: 2,
-    name: "Geopolitical Realignment",
+    name: "Geopolitical Fracture",
     shortName: "Geopolitics",
-    framework: "Multipolar Transition",
+    framework: "Multipolar Fracture",
     icon: "◉",
-    score: 65,
+    score: 72,
     weight: 0.15,
-    tagline: "The post-WWII order is restructuring in real time.",
+    tagline: "The post-WWII order is fracturing — across multiple theaters, simultaneously.",
     metrics: [
       {
         label: "Central bank gold buying",
@@ -524,6 +524,46 @@ export const LENSES: Lens[] = [
           leftLabel: "Peacetime",
           rightLabel: "Mobilization",
         },
+      },
+      {
+        label: "Active conflict theaters",
+        value: "3 simultaneous",
+        num: 3,
+        context: "Ukraine, Middle East (Iran), Red Sea — post-Cold War high",
+        spectrum: {
+          min: 0,
+          max: 5,
+          val: 3,
+          leftLabel: "Contained",
+          rightLabel: "Cascading",
+        },
+      },
+      {
+        label: "Strait of Hormuz oil transit",
+        value: "20.5M bbl/day",
+        num: 20.5,
+        context: "~20% of global oil through one chokepoint",
+        spectrum: {
+          min: 10,
+          max: 25,
+          val: 20.5,
+          leftLabel: "Diversified",
+          rightLabel: "Concentrated",
+        },
+      },
+      {
+        label: "US Strategic Petroleum Reserve",
+        value: "394M bbl",
+        num: 394,
+        context: "lowest since 1984 — down from 638M in 2020",
+        spectrum: {
+          min: 300,
+          max: 700,
+          val: 394,
+          leftLabel: "Depleted",
+          rightLabel: "Full",
+        },
+        invert: true,
       },
       {
         label: "US-China trade volume",
@@ -551,24 +591,11 @@ export const LENSES: Lens[] = [
           rightLabel: "Majority",
         },
       },
-      {
-        label: "P(Taiwan conflict by 2028)",
-        value: "12%",
-        num: 12,
-        context: "Metaculus / Polymarket consensus",
-        spectrum: {
-          min: 0,
-          max: 30,
-          val: 12,
-          leftLabel: "Unlikely",
-          rightLabel: "Elevated",
-        },
-      },
     ],
     sparkData: [400, 450, 500, 650, 750, 850, 1000, 1080, 1100, 1050, 1100, 1136],
     sparkLabel: "Central bank gold purchases (tons/yr, 2015–2025)",
     editorial:
-      "Fourth Turnings historically climax with major geopolitical confrontation. The American Revolution, the Civil War, WWII — each featured existential conflict. Central banks buying gold at record pace is the strongest non-verbal signal: sovereigns are hedging against the existing order. The question is whether this resolves through managed transition or collision.",
+      "The defining feature of this moment isn't any single confrontation — it's simultaneous fracture across multiple theaters. Ukraine grinds on. Iran and the broader Middle East have escalated into open conflict. Houthi forces have disrupted Red Sea shipping, rerouting 80% of container traffic. Taiwan Strait tensions simmer. Each would be a major geopolitical event in isolation. Together, they describe a world order that has lost the capacity to contain conflict within manageable boundaries. The structural vulnerabilities are physical: 20% of global oil transits the Strait of Hormuz, a single chokepoint now adjacent to active military operations. The US Strategic Petroleum Reserve — designed for exactly these moments — sits at its lowest level since 1984. Central banks buying gold at record pace is the institutional tell: sovereigns are hedging against the order they nominally support.",
     historicalScores: { 1938: 95, 1942: 98, 1974: 55, 2008: 25 },
   },
 ];
@@ -601,6 +628,15 @@ export interface ShockEvent {
 }
 
 export const SHOCK_EVENTS: ShockEvent[] = [
+  {
+    date: "Mar 8",
+    lens: "geopolitical",
+    lensName: "Geopolitics",
+    delta: "+7",
+    event: "Iran conflict — WTI crude +30% in historic single-day spike",
+    detail:
+      "Strait of Hormuz shipping at risk. Oil near $117/bbl. Largest single-day price move in crude oil history.",
+  },
   {
     date: "Mar 3",
     lens: "ai",

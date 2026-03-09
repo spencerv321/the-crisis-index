@@ -437,9 +437,9 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
 
   geopolitical: {
     whyThisMatters: [
-      "The post-1945 international order \u2014 built on American military supremacy, the dollar as reserve currency, NATO as the Western security architecture, and multilateral institutions as governance mechanisms \u2014 is undergoing its most significant structural challenge since its creation. This is not a sudden rupture but a gradual tectonic shift that has been building for two decades and has accelerated sharply since 2022.",
-      "BRICS has expanded from its original five members to ten, with over 23 nations formally applying for membership and dozens more expressing interest. The bloc now represents 45% of the world's population and approximately 37-40% of global GDP on a purchasing-power-parity basis \u2014 exceeding the G7. The military dimension is equally significant: global defense spending has reached all-time highs, with the steepest year-on-year increases since the Cold War. The US requested the first-ever trillion-dollar defense budget. European military spending has surged, with NATO adopting dramatically higher spending benchmarks.",
-      "Trade realignment is the third axis. US-China trade volume has declined 22% from its peak, with decoupling accelerating across technology, energy, and financial sectors. The vast majority of trade among Shanghai Cooperation Organisation nations is now conducted in local currencies, bypassing the dollar entirely. The petrodollar system, which has underpinned dollar hegemony since the 1970s, faces structural challenges. The transition from a unipolar to a multipolar world order is the defining geopolitical trend of the 2020s, and it intersects with every other dimension of the Crisis Index.",
+      "The post-1945 international order is not transitioning \u2014 it is fracturing. The distinction matters. A transition implies an orderly handoff from one stable configuration to another. What is happening instead is simultaneous destabilization across multiple theaters, with no clear successor architecture emerging. Ukraine is the largest land war in Europe since 1945. Iran and the broader Middle East have escalated into open military conflict, threatening the Strait of Hormuz \u2014 the chokepoint through which 20% of global oil transits daily. Houthi forces have disrupted Red Sea shipping, forcing 80% of container traffic to reroute around Africa. Taiwan Strait tensions continue to build. These are not isolated crises. They are symptoms of a system that has lost the capacity to contain conflict within manageable boundaries.",
+      "The institutional dimension is equally significant. BRICS has expanded to represent 45% of the world's population and roughly 37-40% of global GDP on a purchasing-power-parity basis \u2014 exceeding the G7. Global defense spending has reached all-time highs, with the steepest year-on-year increases since the Cold War. US-China trade has decoupled 22% from its peak. The vast majority of trade among Shanghai Cooperation Organisation nations now bypasses the dollar entirely. Central banks are buying gold at record pace \u2014 the strongest non-verbal signal that sovereigns are hedging against the order they nominally support.",
+      "The physical infrastructure of the global economy has become a strategic vulnerability. Energy chokepoints \u2014 the Strait of Hormuz, the Suez Canal, the Malacca Strait \u2014 are no longer theoretical risks but active conflict zones. The US Strategic Petroleum Reserve has been drawn down to its lowest level since 1984, leaving less buffer against supply disruptions. A single day of Hormuz closure could spike oil 30-50%. This isn't a financial abstraction \u2014 it's $10 per family per day, immediately, with cascading effects through inflation, fiscal policy, and political stability.",
     ],
     indicators: [
       {
@@ -448,7 +448,19 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       },
       {
         title: "Global Defense Spending ($2.44T)",
-        body: "The current military spending surge is the largest since the Cold War, driven by the war in Ukraine, new NATO spending benchmarks, US-China competition, and Middle Eastern instability. But the more significant trend is the rapid increase in spending by European and Asian allies. The fiscal implications for European governments \u2014 already dealing with aging populations and welfare state obligations \u2014 are enormous. This level of military spending reallocates resources from domestic investment to defense, compounding existing fiscal pressures.",
+        body: "The current military spending surge is the largest since the Cold War, driven by the war in Ukraine, new NATO spending benchmarks, US-China competition, and Middle Eastern escalation. But the more significant trend is the rapid increase in spending by European and Asian allies. The fiscal implications for European governments \u2014 already dealing with aging populations and welfare state obligations \u2014 are enormous. This level of military spending reallocates resources from domestic investment to defense, compounding existing fiscal pressures across the Western alliance.",
+      },
+      {
+        title: "Active Conflict Theaters (3 Simultaneous)",
+        body: "The number of major active military conflicts involving great powers or their proxies has reached its highest level since the Cold War. Ukraine represents the largest land war in Europe since 1945. The Iran conflict threatens the most critical energy chokepoint on earth. Houthi Red Sea operations have disrupted a trade route carrying 12-15% of global commerce. The system's inability to resolve or contain any of these conflicts while new ones emerge is itself the signal \u2014 it indicates structural overextension of the security architecture that maintained relative stability since 1991.",
+      },
+      {
+        title: "Strait of Hormuz Oil Transit (20.5M bbl/day)",
+        body: "Approximately 20% of the world's daily oil consumption passes through a single waterway between Iran and Oman, roughly 21 miles wide at its narrowest point. This concentration risk has existed for decades but was manageable when the Middle East was relatively stable and the US maintained overwhelming naval supremacy in the region. Both conditions have eroded. With active military conflict in Iran and Iranian naval assets positioned along the strait, the risk of disruption \u2014 whether intentional or accidental \u2014 has moved from theoretical to operational. Even a partial disruption would produce the kind of oil price shock seen in the 1973 embargo.",
+      },
+      {
+        title: "US Strategic Petroleum Reserve (394M bbl)",
+        body: "The SPR was created after the 1973 oil embargo specifically to buffer against supply disruptions. It peaked at 727 million barrels in 2009. The drawdown to 394 million barrels \u2014 the lowest since 1984 \u2014 reflects both the 2022 release to manage gasoline prices and the failure to adequately refill. At current consumption rates, 394 million barrels represents roughly 20 days of imports. The reserve was designed for exactly the scenario now unfolding: a major Middle Eastern conflict threatening energy supply. Its depleted state means the US has significantly less capacity to absorb a supply shock than at any point in the last four decades.",
       },
       {
         title: "US-China Trade Volume (\u221222% from peak)",
@@ -458,15 +470,15 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
         title: "BRICS GDP Share (37.3% PPP)",
         body: "BRICS now represents a larger share of global GDP than the G7 on a purchasing-power-parity basis \u2014 a milestone crossed in 2023. The expansion adds strategic depth: with recent members, BRICS controls a significant share of global oil and gas production and spans every major region. The New Development Bank is preparing to issue bonds in multiple local currencies, explicitly diversifying away from dollar-denominated financing. Whether BRICS consolidates into a genuine institutional counterweight or remains a loose diplomatic forum will be determined by its next phase of development.",
       },
-      {
-        title: "P(Taiwan Conflict by 2028) (12%)",
-        body: "Prediction markets assign roughly one-in-eight odds to a Taiwan conflict within the next few years. Any military escalation would represent the most consequential geopolitical event since World War II, with implications for semiconductor supply chains (Taiwan produces over 90% of advanced chips), global trade, the US-China relationship, and the broader international order. China's military spending trajectory and its exercises around Taiwan are leading indicators. The probability may seem low, but the consequences are so severe that even 12% represents an enormous expected cost.",
-      },
     ],
     historicalContext: [
       {
         era: "The 1930s \u2014 The End of Pax Britannica",
         body: "The interwar period marked the final decline of British global hegemony. Britain's share of world manufacturing had fallen precipitously over decades. The pound sterling was being displaced as the primary reserve currency. The League of Nations failed to prevent aggression. Today's dynamics \u2014 a dominant power's relative decline, the rise of challengers, the weakening of multilateral institutions, and increasing resort to bilateral power arrangements \u2014 mirror the 1930s more closely than any subsequent period.",
+      },
+      {
+        era: "1973 \u2014 The Oil Weapon",
+        body: "The 1973 Arab oil embargo demonstrated that energy could be weaponized as a geopolitical tool with devastating economic consequences. OPEC's production cuts triggered a 300% oil price increase, stagflation across the Western world, gas lines in American cities, and a fundamental restructuring of energy policy. The embargo created the Strategic Petroleum Reserve, reshaped US Middle East policy for fifty years, and demonstrated that physical supply disruptions cascade through the entire economy within days. The current Middle Eastern conflict threatens the same chokepoints \u2014 but with the SPR already depleted and global supply chains more interconnected than in 1973.",
       },
       {
         era: "The 1970s \u2014 Petrodollar Emergence",
@@ -484,6 +496,11 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
         view: "Dalio's Big Cycle model identifies the current period as a classic great power transition, with the US facing a rising challenger while dealing with internal disorder and fiscal strain. He emphasizes that these transitions historically involve trade wars, technology wars, capital wars, and sometimes military conflict. He warns of scenarios analogous to the freezing of Japanese assets before World War II, noting capital wars as an increasingly visible dimension of competition.",
       },
       {
+        name: "Zoltan Pozsar",
+        framework: "Bretton Woods III",
+        view: "Pozsar argues the global monetary order is shifting from one backed by financial assets (US Treasuries) to one backed by physical commodities \u2014 oil, gas, metals, food. In this framework, the Strait of Hormuz isn't just an energy chokepoint; it's a monetary chokepoint. Whoever controls commodity flows controls the new collateral base. The weaponization of reserves (Russia 2022) accelerated this transition by proving that financial assets can be confiscated but physical commodities cannot. Central bank gold buying is the visible edge of this structural shift.",
+      },
+      {
         name: "Luke Gromen",
         framework: "Dollar System Restructuring",
         view: "Gromen argues that countries like China, Russia, and India are forcing gold back into the international monetary system as a neutral reserve asset to replace Treasuries. He sees the transition as structural and irreversible, warning that the US cannot sustain economic confrontation without eventually imposing capital controls \u2014 which would mark a dramatic escalation in the fracturing of the global financial system.",
@@ -495,6 +512,10 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
       },
     ],
     whatToWatch: [
+      {
+        title: "Strait of Hormuz Disruption",
+        body: "Any sustained disruption to Hormuz transit \u2014 whether through Iranian naval action, mine deployment, or insurance market refusal \u2014 would produce the most severe energy shock since 1973. Oil prices could spike to $150+ per barrel within days. The cascading effects through inflation, consumer spending, fiscal policy, and political stability would touch every other lens in the Crisis Index. The insurance market's willingness to cover tanker transit is a leading indicator.",
+      },
       {
         title: "Taiwan Strait Dynamics",
         body: "Any military escalation around Taiwan would be the most consequential geopolitical event since World War II. China's military spending trajectory, naval exercises, and diplomatic signaling are leading indicators. Watch also for US semiconductor policy and TSMC's expansion of manufacturing outside Taiwan as hedging behavior.",
