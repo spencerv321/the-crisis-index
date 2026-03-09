@@ -163,6 +163,32 @@ export const LENSES: Lens[] = [
         },
       },
       {
+        label: "Treasury basis trade",
+        value: "$1.85T",
+        num: 1.85,
+        context: "leveraged hedge fund positions — up $1T since 2022",
+        spectrum: {
+          min: 0,
+          max: 3,
+          val: 1.85,
+          leftLabel: "Low risk",
+          rightLabel: "Systemic",
+        },
+      },
+      {
+        label: "Foreign official Treasury buying",
+        value: "4%",
+        num: 4,
+        context: "of new issuance — was 53% in 2002–2014",
+        spectrum: {
+          min: 0,
+          max: 60,
+          val: 4,
+          leftLabel: "Abandoned",
+          rightLabel: "Strong",
+        },
+      },
+      {
         label: "Dollar reserve share",
         value: "57.8%",
         num: 57.8,
@@ -205,7 +231,7 @@ export const LENSES: Lens[] = [
     sparkData: [62, 64, 68, 76, 100, 108, 120, 123, 125, 127, 129, 124.8],
     sparkLabel: "Debt-to-GDP (%, 2012–2026)",
     editorial:
-      "The math is becoming unavoidable. Federal interest costs now consume nearly a quarter of tax revenue — and that's before the next recession. Dalio's framework says this is textbook late-cycle: too much debt, too much inequality, too much political polarization, all at once. The question isn't if the system adjusts — it's how.",
+      "The math is becoming unavoidable. Federal interest costs now consume nearly a quarter of tax revenue — and that's before the next recession. But the structural story is worse than the headline numbers: foreign central banks have stopped financing the deficit. In their place, Cayman-domiciled hedge funds running leveraged basis trades now absorb 37% of new Treasury issuance — the same fragile structure that nearly broke in March 2020. Dalio's framework says this is textbook late-cycle: too much debt, too much inequality, too much political polarization, all at once. The question isn't if the system adjusts — it's how.",
     historicalScores: { 1938: 75, 1942: 92, 1974: 65, 2008: 72 },
   },
   {
@@ -369,7 +395,7 @@ export const LENSES: Lens[] = [
     tier: 2,
     name: "Social Fragmentation",
     shortName: "Social",
-    framework: "Meaning Crisis",
+    framework: "The Anti-Social Century",
     icon: "◌",
     score: 75,
     weight: 0.15,
@@ -381,6 +407,32 @@ export const LENSES: Lens[] = [
         num: 205,
         context: "CDC — tripled since late 1990s",
         big: true,
+      },
+      {
+        label: "Teen socializing (face-to-face)",
+        value: "−50%",
+        num: -50,
+        context: "ATUS 2003–2024 — steepest age-group decline",
+        spectrum: {
+          min: -60,
+          max: 0,
+          val: -50,
+          leftLabel: "Isolated",
+          rightLabel: "Connected",
+        },
+      },
+      {
+        label: "Adults with zero close friends",
+        value: "12%",
+        num: 12,
+        context: "quadrupled since 1990 — American Perspectives Survey",
+        spectrum: {
+          min: 0,
+          max: 20,
+          val: 12,
+          leftLabel: "Few",
+          rightLabel: "Epidemic",
+        },
       },
       {
         label: "Trust in government",
@@ -423,20 +475,6 @@ export const LENSES: Lens[] = [
         },
       },
       {
-        label: "Congressional approval",
-        value: "18%",
-        num: 18,
-        context: "Gallup monthly",
-        spectrum: {
-          min: 0,
-          max: 60,
-          val: 18,
-          leftLabel: "None",
-          rightLabel: "Confident",
-        },
-        invert: true,
-      },
-      {
         label: "Churchgoing adults",
         value: "30%",
         num: 30,
@@ -453,7 +491,7 @@ export const LENSES: Lens[] = [
     sparkData: [70, 62, 55, 50, 44, 40, 37, 35, 33, 31, 30, 30],
     sparkLabel: "Churchgoing adults (%, 1999–2025)",
     editorial:
-      "This is the dimension most people feel before they can articulate it. Trust in every major institution is at or near historic lows. Deaths of despair have tripled. Loneliness is an epidemic. The meaning-making structures that held society together — church, civic organizations, local community — are failing. Nothing has replaced them yet.",
+      "Derek Thompson calls it the Anti-Social Century: Americans aren't just lonely — they've stopped wanting to connect. Face-to-face socializing has dropped 30% for adults and nearly 50% for teenagers. The number of Americans with zero close friends has quadrupled. This isn't a pandemic artifact — the decline began in 2012, when smartphone penetration hit critical mass. Three waves of privatization — cars, television, smartphones — have systematically dismantled the 'middle ring' of neighbors, colleagues, and acquaintances. These were the relationships that taught tolerance and built community. The meaning-making structures that held society together — church, civic organizations, local community — are failing. Nothing has replaced them yet.",
     historicalScores: { 1938: 80, 1942: 65, 1974: 70, 2008: 50 },
   },
   {
@@ -643,7 +681,17 @@ export const PERSPECTIVES: Perspective[] = [
   {
     name: "Grant Williams & Demetri Kofinas",
     role: "The 100 Year Pivot",
-    view: "We are living through a once-per-century monetary regime change. The Bretton Woods system is ending in slow motion. What replaces it will define the next 50 years of global economics, politics, and power.",
+    view: "Every crisis on this dashboard is connected. The debt cycle, the generational turn, the monetary regime shift, the geopolitical realignment — they are not separate problems. They are one structural transition happening simultaneously, for the first time since the 1940s. The 40-year tailwind of declining rates, expanding globalization, and ever-increasing leverage has reversed. What comes next won't look like what came before.",
+  },
+  {
+    name: "Derek Thompson",
+    role: "The Anti-Social Century",
+    view: "Americans aren't just lonely — they've stopped wanting to connect. Face-to-face socializing has dropped 50% for teenagers. The number of adults with zero close friends has quadrupled. Three waves of privatization — cars, television, smartphones — have dismantled the 'middle ring' of relationships that taught tolerance and held communities together.",
+  },
+  {
+    name: "Tyler Cowen",
+    role: "The Great Stagnation",
+    view: "America ate the low-hanging fruit — cheap land, mass education, transformative technologies — and nothing comparably productive has replaced them. The physical world stagnated while the digital world accelerated. AI is the first technology since electricity that might break the stagnation, but the gains will cleave society into those who complement machines and everyone else. Small differences in growth rates compound: 1% vs. 2% over a century is the difference between the US and Mexico.",
   },
   {
     name: "Luke Gromen",

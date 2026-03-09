@@ -113,6 +113,14 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
         title: "Home Price / Income (7.5\u00d7)",
         body: "The ratio of median home price to median household income is a measure of housing affordability and, by extension, intergenerational equity. The historical average is approximately 3.5\u00d7. At 7.5\u00d7, housing has become structurally unaffordable for new entrants without inherited wealth or dual high incomes. This ratio captures the downstream effect of the debt supercycle: decades of easy monetary policy have inflated asset prices faster than wages, creating a system where existing asset holders benefit and new participants are excluded.",
       },
+      {
+        title: "Treasury Basis Trade ($1.85T)",
+        body: "Grant Williams and others have identified a critical structural vulnerability in the Treasury market: Cayman-domiciled hedge funds now hold $1.85 trillion in leveraged Treasury positions, up $1 trillion since 2022. These funds have absorbed 37% of net Treasury issuance, effectively replacing central bank demand. The positions are leveraged 10-50x via repo markets. In March 2020, a similar structure nearly broke when funds were forced to sell $426 billion in Treasuries during the 'dash for cash.' Cayman Islands entities are now the largest foreign holders of US Treasuries, surpassing both China and Japan. The system's largest debtor is now being financed not by patient sovereign wealth but by leveraged speculation.",
+      },
+      {
+        title: "Foreign Official Treasury Buying (4%)",
+        body: "Between 2002 and 2014, foreign official institutions (central banks, sovereign wealth funds) absorbed 53% of $11.7 trillion in new US debt issuance. Between 2014 and 2024, they absorbed just 4% of $11.8 trillion in new issuance. This is the single clearest structural shift in the debt supercycle: the world's sovereign institutions have stopped financing the US deficit. In their place, leveraged private capital and money market funds have stepped in, creating a far more fragile and procyclical buyer base that will sell, not buy, during the next crisis.",
+      },
     ],
     historicalContext: [
       {
@@ -149,11 +157,20 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
         framework: "Debt Deflation",
         view: "Hunt offers a contrarian counterpoint. He argues that excessive debt ultimately produces deflation, not inflation, because the marginal revenue product of debt has fallen to approximately 40 cents per dollar borrowed. He predicts that the debt burden will compress economic growth and that Treasury bonds will outperform as deflationary forces reassert themselves. He sees recession as the more probable near-term outcome.",
       },
+      {
+        name: "Grant Williams & Demetri Kofinas",
+        framework: "The 100 Year Pivot",
+        view: "Williams and Kofinas argue the debt supercycle is not an isolated fiscal problem but one pillar of a once-per-century structural transition. Williams identifies the 2022 freezing of Russian reserves as the catalytic event: it forced every central bank to question whether dollar-denominated reserves were safe. The result is a buyer's strike in Treasuries by sovereign institutions and record gold accumulation. Kofinas frames the downstream effect as the 'EM-ification' of developed economies: the US and Europe are increasingly exhibiting characteristics of emerging markets \u2014 persistent deficits, credit downgrades, and volatile bond markets.",
+      },
     ],
     whatToWatch: [
       {
         title: "Treasury Auction Demand",
         body: "Foreign and domestic demand at Treasury auctions \u2014 particularly the bid-to-cover ratio and the share of indirect bidders (typically foreign central banks) \u2014 is the most sensitive real-time signal of confidence in US sovereign credit. A sustained deterioration would force either higher yields (worsening the deficit) or Fed intervention (debasement).",
+      },
+      {
+        title: "Basis Trade Unwinding",
+        body: "The $1.85 trillion in leveraged hedge fund Treasury positions represents a systemic fragility. A forced unwinding \u2014 triggered by a volatility spike, repo market stress, or margin calls \u2014 would produce the same dynamics as March 2020 but at much larger scale. The concentration is extreme: the top 50 funds account for 85% of total Treasury exposure and 90% of repo activity. This is the most fragile node in the global financial system.",
       },
       {
         title: "The 10-Year Treasury Yield Crossing 5%",
@@ -333,6 +350,14 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
         body: "This metric, coined by economists Anne Case and Angus Deaton, captures deaths from suicide, drug overdose, and alcohol-related causes. The tripling since the late 1990s represents one of the most alarming public health trends in American history, concentrated among working-class Americans without college degrees. Deaths of despair are not merely a health statistic \u2014 they are a measure of social collapse at the individual level. Communities with high rates of deaths of despair also show declining civic participation, lower trust, and higher political alienation.",
       },
       {
+        title: "Teen Face-to-Face Socializing (\u221250%)",
+        body: "The American Time Use Survey shows that face-to-face socializing for teenagers has fallen roughly 50% since 2003 \u2014 the steepest decline of any age group. The inflection point was 2012, when smartphone penetration hit critical mass. Derek Thompson's analysis of the ATUS data reveals that adults overall have reduced face-to-face socializing by 30%, spend 99 extra minutes per day at home, and attend or host social events at half the rate of 2003. Young people aged 15-24 spend 70% less time at parties. This is not a pandemic artifact \u2014 the decline was well established before COVID and has not reversed.",
+      },
+      {
+        title: "Adults with Zero Close Friends (12%)",
+        body: "The American Perspectives Survey shows the share of Americans reporting no close friends has quadrupled from 3% in 1990 to 12% today. Conversely, those with 10+ close friends has declined threefold. Thompson's 'middle ring' thesis explains why: it is not intimate relationships disappearing but casual acquaintances \u2014 neighbors, colleagues, fellow congregants \u2014 the relationships that teach tolerance, collaboration, and shared responsibility. Their loss drives both political polarization (all tribe, no village) and the deeper meaning crisis.",
+      },
+      {
         title: "Trust in Government (22%)",
         body: "Gallup's institutional trust survey shows that barely one in five Americans trusts the federal government to do the right thing most of the time. The current reading is near the all-time low. What makes this structurally distinct from previous trust lows is the degree to which trust has become entirely conditional on partisan control. When one party takes power, its supporters' trust surges while the other party's collapses. This is not skepticism toward government as an institution \u2014 it is tribalized epistemology in which the system's legitimacy depends on which faction controls it.",
       },
@@ -382,6 +407,16 @@ export const DEEP_DIVES: Record<string, DeepDive> = {
         name: "Peter Turchin",
         framework: "End Times",
         view: "Turchin's structural-demographic theory uses quantitative data to identify periods of social instability. His 2023 book predicted (based on data, not generational theory) that the US would enter maximum social instability around 2020-2030 \u2014 arriving at essentially the same conclusion as the Fourth Turning through purely empirical methods. His key variables \u2014 elite overproduction, popular immiseration, and state fiscal crisis \u2014 are all at elevated levels.",
+      },
+      {
+        name: "Derek Thompson",
+        framework: "The Anti-Social Century",
+        view: "Thompson reframes the loneliness narrative: the problem is not that Americans feel lonely \u2014 it is that they have stopped wanting to connect. Three waves of privatization (cars, television, smartphones) have systematically dismantled the 'middle ring' of casual relationships. The life-scale cascade is self-reinforcing: fewer teen friendships lead to less dating, less marriage, fewer children. He identifies the decline of churchgoing as the loss of a 'retaining wall' against hyper-individualism, noting that states with the largest churchgoing declines had the largest increases in deaths of despair.",
+      },
+      {
+        name: "Tyler Cowen",
+        framework: "The Complacent Class",
+        view: "Cowen diagnoses social fragmentation from the economic side. Since the 1980s, America has become less dynamic and more risk-averse: interstate migration has fallen by half, new business formation has declined, and assortative mating has intensified class stratification. His 'Great Stagnation' thesis \u2014 that America exhausted the low-hanging fruit of cheap land, mass education, and transformative technologies \u2014 means the social contract cannot be renewed through growth alone. The complacency is self-reinforcing but ultimately self-defeating: postponing disruption makes it worse when it finally arrives.",
       },
     ],
     whatToWatch: [
