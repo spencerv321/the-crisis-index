@@ -98,6 +98,14 @@ async function seed() {
       count INT DEFAULT 1,
       UNIQUE(date, action)
     );
+
+    CREATE TABLE IF NOT EXISTS feed_log (
+      id SERIAL PRIMARY KEY,
+      refreshed_at TIMESTAMPTZ DEFAULT NOW(),
+      metrics_updated INT DEFAULT 0,
+      metrics_errored INT DEFAULT 0,
+      results_json JSONB
+    );
   `);
   console.log("  ✅ Tables created\n");
 

@@ -14,6 +14,8 @@ export interface Metric {
   big?: boolean;
   spectrum?: SpectrumDef;
   invert?: boolean;
+  /** Set by FRED auto-refresh — indicates this metric has a live data source */
+  feedId?: string;
 }
 
 export interface Lens {

@@ -691,6 +691,222 @@
   .form-feedback.success { color: var(--success); }
   .form-feedback.error { color: var(--error); }
 
+  /* Live Feed Indicator */
+  .feed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-data);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--success);
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+  }
+
+  .feed-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Refresh Data Section */
+  .refresh-section {
+    background: var(--bg-card);
+    border: 1px solid var(--copper-dim);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .refresh-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .refresh-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .refresh-title h3 {
+    font-family: var(--font-data);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .btn-refresh-data {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.3);
+    border-radius: var(--radius);
+    color: var(--success);
+    font-family: var(--font-data);
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all var(--transition);
+    letter-spacing: 0.3px;
+  }
+
+  .btn-refresh-data:hover {
+    background: rgba(74,222,128,0.15);
+    border-color: rgba(74,222,128,0.5);
+  }
+
+  .btn-refresh-data:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-refresh-data .icon {
+    font-size: 14px;
+    transition: transform 0.6s ease;
+  }
+
+  .btn-refresh-data.spinning .icon {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .refresh-status {
+    font-family: var(--font-data);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    min-height: 16px;
+  }
+
+  .refresh-results {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--copper-dim);
+  }
+
+  .refresh-results.visible { display: block; }
+
+  .refresh-result-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .refresh-result-row .metric-name {
+    color: var(--text);
+  }
+
+  .refresh-result-row .change {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .refresh-result-row .old-val {
+    color: var(--text-dimmer);
+    text-decoration: line-through;
+  }
+
+  .refresh-result-row .arrow {
+    color: var(--text-dimmer);
+  }
+
+  .refresh-result-row .new-val {
+    color: var(--success);
+    font-weight: 500;
+  }
+
+  .refresh-result-row .status-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .refresh-result-row .status-tag.updated {
+    color: var(--success);
+    background: rgba(74,222,128,0.1);
+  }
+
+  .refresh-result-row .status-tag.unchanged {
+    color: var(--text-dimmer);
+    background: rgba(232,224,212,0.05);
+  }
+
+  .refresh-result-row .status-tag.error {
+    color: var(--error);
+    background: rgba(248,113,113,0.1);
+  }
+
+  .refresh-result-row .status-tag.skipped {
+    color: var(--text-dimmer);
+    background: rgba(232,224,212,0.05);
+  }
+
+  /* Metric indicator in lens cards */
+  .metric-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--text-dim);
+    border-bottom: 1px solid rgba(201,127,74,0.04);
+  }
+
+  .metric-item:last-child { border-bottom: none; }
+
+  .metric-item .metric-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .metric-item .metric-value {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .metric-live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--success);
+    flex-shrink: 0;
+  }
+
   /* Loading overlay */
   .section-loading {
     text-align: center;
@@ -892,6 +1108,30 @@
     </div>
   </section>
 
+  <!-- FRED Data Feeds -->
+  <section class="section" id="feeds-section">
+    <div class="section-header">
+      <span class="section-title">Live Data Feeds</span>
+      <span class="feed-badge"><span class="dot"></span> FRED API</span>
+    </div>
+    <div class="refresh-section">
+      <div class="refresh-header">
+        <div class="refresh-title">
+          <h3>Auto-Update Metrics from FRED</h3>
+          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">8 metrics tracked</span>
+        </div>
+        <button class="btn-refresh-data" id="btn-refresh-data" onclick="handleRefreshData()">
+          <span class="icon">&#x21bb;</span>
+          Refresh Data
+        </button>
+      </div>
+      <div class="refresh-status" id="refresh-status">
+        <span id="last-fred-refresh" style="color:var(--text-dimmer);">Checking last refresh...</span>
+      </div>
+      <div class="refresh-results" id="refresh-results"></div>
+    </div>
+  </section>
+
   <!-- Lens Score Editor -->
   <section class="section" id="lenses-section">
     <div class="section-header">
@@ -927,7 +1167,7 @@
             <option value="repression" data-name="Financial Repression">Financial Repression</option>
             <option value="ai" data-name="AI Disruption">AI Disruption</option>
             <option value="social" data-name="Social Fragmentation">Social Fragmentation</option>
-            <option value="geopolitical" data-name="Geopolitical Realignment">Geopolitical Realignment</option>
+            <option value="geopolitical" data-name="Geopolitical Fracture">Geopolitical Fracture</option>
           </select>
         </div>
         <div class="form-group">
@@ -968,7 +1208,7 @@
     repression: 'Financial Repression',
     ai: 'AI Disruption',
     social: 'Social Fragmentation',
-    geopolitical: 'Geopolitical Realignment'
+    geopolitical: 'Geopolitical Fracture'
   };
 
   // ── Utilities ──
@@ -1085,6 +1325,7 @@
     loadAnalytics();
     loadLenses();
     loadShockEvents();
+    loadFeedStatus();
     analyticsRefreshTimer = setInterval(loadAnalytics, 30000);
   }
 
@@ -1203,11 +1444,15 @@
 
     grid.innerHTML = lensesData.map((lens, i) => {
       const id = lens.id || lens.shortName || i;
+      const hasLiveMetrics = LIVE_METRICS[id] && LIVE_METRICS[id].length > 0;
       return '<div class="lens-card" data-lens-id="' + escapeHtml(String(id)) + '">' +
         '<div class="lens-card-header">' +
-          '<span class="lens-name">' + escapeHtml(lens.name || id) + '</span>' +
+          '<span class="lens-name">' + escapeHtml(lens.name || id) +
+            (hasLiveMetrics ? ' <span class="feed-badge" style="font-size:9px;padding:1px 5px;margin-left:6px;"><span class="dot" style="width:4px;height:4px;"></span>LIVE</span>' : '') +
+          '</span>' +
           '<span class="lens-current-score">' + (lens.score != null ? lens.score : '—') + '</span>' +
         '</div>' +
+        renderMetricsList(lens) +
         '<div class="lens-field">' +
           '<label>Score (0-100)</label>' +
           '<input type="number" min="0" max="100" step="1" value="' + (lens.score != null ? lens.score : '') + '" id="score-' + escapeHtml(String(id)) + '" />' +
@@ -1406,6 +1651,120 @@
   document.getElementById('token-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') handleLogin();
   });
+
+  // ── FRED Data Feeds ──
+  async function loadFeedStatus() {
+    try {
+      const data = await apiFetch('/api/admin/refresh-data');
+      const el = document.getElementById('last-fred-refresh');
+      if (data.lastRefresh) {
+        const d = new Date(data.lastRefresh);
+        el.textContent = 'Last refresh: ' + d.toLocaleString();
+        el.style.color = 'var(--text-dim)';
+      } else {
+        el.textContent = 'No data refreshes yet — click Refresh Data to pull from FRED';
+        el.style.color = 'var(--text-dimmer)';
+      }
+      if (!data.hasFredKey) {
+        el.textContent = '⚠ FRED_API_KEY not configured — add it to environment variables';
+        el.style.color = 'var(--error)';
+      }
+    } catch (e) {
+      if (e.message !== 'Unauthorized') {
+        const el = document.getElementById('last-fred-refresh');
+        el.textContent = 'Could not load feed status';
+        el.style.color = 'var(--text-dimmer)';
+      }
+    }
+  }
+
+  async function handleRefreshData() {
+    const btn = document.getElementById('btn-refresh-data');
+    const statusEl = document.getElementById('refresh-status');
+    const resultsEl = document.getElementById('refresh-results');
+
+    btn.disabled = true;
+    btn.classList.add('spinning');
+    statusEl.innerHTML = '<span style="color:var(--copper);">Fetching data from FRED API...</span>';
+    resultsEl.classList.remove('visible');
+
+    try {
+      const data = await apiFetch('/api/admin/refresh-data', { method: 'POST' });
+
+      const s = data.summary;
+      statusEl.innerHTML =
+        '<span style="color:var(--success);">' + s.updated + ' updated</span>' +
+        '<span style="color:var(--text-dimmer);margin:0 4px;">·</span>' +
+        '<span style="color:var(--text-dimmer);">' + s.unchanged + ' unchanged</span>' +
+        (s.errors > 0 ? '<span style="color:var(--text-dimmer);margin:0 4px;">·</span><span style="color:var(--error);">' + s.errors + ' errors</span>' : '') +
+        '<span style="color:var(--text-dimmer);margin:0 4px;">·</span>' +
+        '<span style="color:var(--text-dimmer);">' + new Date(data.refreshedAt).toLocaleString() + '</span>';
+
+      // Render individual results
+      if (data.results && data.results.length > 0) {
+        const filtered = data.results.filter(r => r.status !== 'skipped');
+        if (filtered.length > 0) {
+          resultsEl.innerHTML = filtered.map(r => {
+            let changeHtml = '';
+            if (r.status === 'updated' && r.oldValue && r.newValue) {
+              changeHtml = '<div class="change">' +
+                '<span class="old-val">' + escapeHtml(r.oldValue) + '</span>' +
+                '<span class="arrow">&rarr;</span>' +
+                '<span class="new-val">' + escapeHtml(r.newValue) + '</span>' +
+              '</div>';
+            } else if (r.status === 'error') {
+              changeHtml = '<span style="color:var(--error);font-size:11px;">' + escapeHtml(r.error || 'unknown error') + '</span>';
+            }
+            return '<div class="refresh-result-row">' +
+              '<span class="metric-name">' + escapeHtml(r.metricLabel) + '</span>' +
+              '<div style="display:flex;align-items:center;gap:8px;">' +
+                changeHtml +
+                '<span class="status-tag ' + r.status + '">' + r.status + '</span>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+          resultsEl.classList.add('visible');
+        }
+      }
+
+      // Reload lenses to show updated values
+      loadLenses();
+    } catch (e) {
+      statusEl.innerHTML = '<span style="color:var(--error);">Refresh failed: ' + escapeHtml(e.message) + '</span>';
+    } finally {
+      btn.disabled = false;
+      btn.classList.remove('spinning');
+    }
+  }
+
+  // ── Updated renderLenses with live indicators ──
+  const LIVE_METRICS = {
+    'repression': ['Gold price', 'Real interest rate', '10Y yield vs. CPI', 'Bank credit growth', '5Y inflation breakeven'],
+    'debt': ['US National Debt', 'Debt-to-GDP'],
+    'geopolitical': ['US Strategic Petroleum Reserve']
+  };
+
+  function isLiveMetric(lensId, metricLabel) {
+    const liveList = LIVE_METRICS[lensId];
+    if (!liveList) return false;
+    return liveList.includes(metricLabel);
+  }
+
+  function renderMetricsList(lens) {
+    if (!lens.metrics || !lens.metrics.length) return '';
+    return '<div style="margin:10px 0;padding:8px 0;border-top:1px solid var(--copper-dim);">' +
+      lens.metrics.map(m => {
+        const live = isLiveMetric(lens.id, m.label) || m.feedId;
+        return '<div class="metric-item">' +
+          '<span class="metric-label">' +
+            (live ? '<span class="metric-live-dot" title="Auto-updated from FRED"></span>' : '') +
+            escapeHtml(m.label) +
+          '</span>' +
+          '<span class="metric-value">' + escapeHtml(m.value) + '</span>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+  }
 
   // ── Auto-login if token exists ──
   if (token) {
