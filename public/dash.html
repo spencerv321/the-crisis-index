@@ -1118,7 +1118,7 @@
       <div class="refresh-header">
         <div class="refresh-title">
           <h3>Auto-Update Metrics from FRED</h3>
-          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">8 metrics tracked</span>
+          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">12 metrics tracked</span>
         </div>
         <button class="btn-refresh-data" id="btn-refresh-data" onclick="handleRefreshData()">
           <span class="icon">&#x21bb;</span>
@@ -1740,8 +1740,9 @@
   // ── Updated renderLenses with live indicators ──
   const LIVE_METRICS = {
     'repression': ['Gold price', 'Real interest rate', '10Y yield vs. CPI', 'Bank credit growth', '5Y inflation breakeven'],
-    'debt': ['US National Debt', 'Debt-to-GDP'],
-    'geopolitical': ['US Strategic Petroleum Reserve']
+    'debt': ['US National Debt', 'Debt-to-GDP', 'Interest cost / revenue', 'Gini coefficient'],
+    'geopolitical': ['US Strategic Petroleum Reserve', 'US-China trade volume'],
+    'generational': ['Gen Z labor participation']
   };
 
   function isLiveMetric(lensId, metricLabel) {

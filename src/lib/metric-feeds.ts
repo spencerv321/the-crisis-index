@@ -270,6 +270,111 @@ export const FEED_DEFINITIONS: FeedDefinition[] = [
     },
     // We use this feed just to track oil price in context, not to update the metric value
   },
+
+  {
+    feedId: "us-china-imports",
+    lensId: "geopolitical",
+    metricLabel: "US-China trade volume",
+    fredSeries: ["IMPCH"],
+    transform: (values) => {
+      const latest = values.get("IMPCH");
+      const yearAgo = values.get("IMPCH_YEAR_AGO");
+      if (!latest || !yearAgo) return null;
+
+      const yoy = ((latest.value - yearAgo.value) / yearAgo.value) * 100;
+      const sign = yoy >= 0 ? "+" : "";
+      return {
+        value: `${sign}${yoy.toFixed(0)}% YoY`,
+        num: parseFloat(yoy.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const latest = values.get("IMPCH");
+      const yearAgo = values.get("IMPCH_YEAR_AGO");
+      if (!latest || !yearAgo) return undefined;
+      const yoy = ((latest.value - yearAgo.value) / yearAgo.value) * 100;
+      return yoy < -5
+        ? "decoupling accelerating"
+        : yoy < 5
+          ? "trade stabilizing"
+          : "trade rebounding";
+    },
+  },
+
+  // ── Debt Supercycle (additional) ─────────────────────────────
+
+  {
+    feedId: "interest-to-revenue",
+    lensId: "debt",
+    metricLabel: "Interest cost / revenue",
+    fredSeries: ["A091RC1Q027SBEA", "FGRECPT"],
+    transform: (values) => {
+      const interest = values.get("A091RC1Q027SBEA");
+      const receipts = values.get("FGRECPT");
+      if (!interest || !receipts || receipts.value === 0) return null;
+
+      const ratio = (interest.value / receipts.value) * 100;
+      return {
+        value: `${ratio.toFixed(1)}%`,
+        num: parseFloat(ratio.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const interest = values.get("A091RC1Q027SBEA");
+      if (!interest) return undefined;
+      // A091RC1Q027SBEA is quarterly SAAR in billions
+      const annualized = interest.value;
+      return `CBO — $${(annualized / 1000).toFixed(1)}T/yr in interest alone`;
+    },
+  },
+
+  {
+    feedId: "gini-coefficient",
+    lensId: "debt",
+    metricLabel: "Gini coefficient",
+    fredSeries: ["GINIALLRF"],
+    transform: (values) => {
+      const gini = values.get("GINIALLRF");
+      if (!gini) return null;
+      return {
+        value: gini.value.toFixed(2),
+        num: parseFloat(gini.value.toFixed(2)),
+      };
+    },
+    contextUpdate: (values) => {
+      const gini = values.get("GINIALLRF");
+      if (!gini) return undefined;
+      return gini.value >= 0.48
+        ? "Census — highest since tracking began"
+        : `Census — near record levels`;
+    },
+  },
+
+  // ── Generational Cycle ───────────────────────────────────────
+
+  {
+    feedId: "gen-z-labor",
+    lensId: "generational",
+    metricLabel: "Gen Z labor participation",
+    fredSeries: ["LNS11300036"],
+    transform: (values) => {
+      const rate = values.get("LNS11300036");
+      if (!rate) return null;
+      return {
+        value: `${rate.value.toFixed(1)}%`,
+        num: parseFloat(rate.value.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const rate = values.get("LNS11300036");
+      if (!rate) return undefined;
+      return rate.value >= 70
+        ? "highest entry rate since Boomers"
+        : rate.value >= 65
+          ? "strong entry rate — approaching Boomer levels"
+          : "below historical norms";
+    },
+  },
 ];
 
 // ── Refresh Engine ────────────────────────────────────────────
@@ -301,7 +406,7 @@ export async function refreshAllFeeds(): Promise<RefreshResult[]> {
       allSeries.add(series);
     }
     // Check if any transform references _YEAR_AGO keys
-    // (CPI and TOTBKCR need YoY calculations)
+    // (CPI, TOTBKCR, IMPCH need YoY calculations)
     if (
       feed.feedId === "real-interest-rate" ||
       feed.feedId === "10y-vs-cpi"
@@ -310,6 +415,9 @@ export async function refreshAllFeeds(): Promise<RefreshResult[]> {
     }
     if (feed.feedId === "bank-credit-growth") {
       needsYearAgo.add("TOTBKCR");
+    }
+    if (feed.feedId === "us-china-imports") {
+      needsYearAgo.add("IMPCH");
     }
   }
 
