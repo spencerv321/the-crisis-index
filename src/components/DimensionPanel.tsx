@@ -101,7 +101,7 @@ export default function DimensionPanel({
               }
             >
               <div
-                className="font-data"
+                className="font-data flex items-center gap-1.5"
                 style={{
                   fontSize: "0.55rem",
                   color: "rgba(232,224,212,0.3)",
@@ -110,6 +110,20 @@ export default function DimensionPanel({
                 }}
               >
                 {m.label}
+                {m.feedId && (
+                  <span
+                    title="Live data · FRED"
+                    style={{
+                      display: "inline-block",
+                      width: 5,
+                      height: 5,
+                      borderRadius: "50%",
+                      background: "#4ade80",
+                      animation: "liveDotPulse 3s ease-in-out infinite",
+                      flexShrink: 0,
+                    }}
+                  />
+                )}
               </div>
               <div className="flex items-baseline gap-2 mt-0.5">
                 <span

@@ -167,18 +167,41 @@ export default function LensDeepDive({
               "linear-gradient(135deg, rgba(17,24,39,0.85), rgba(10,15,26,0.95))",
           }}
         >
-          <h2
-            className="font-data"
-            style={{
-              fontSize: "0.6rem",
-              color: accentBg + "0.4)",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              marginBottom: 12,
-            }}
-          >
-            Current Readings
-          </h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2
+              className="font-data"
+              style={{
+                fontSize: "0.6rem",
+                color: accentBg + "0.4)",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+              }}
+            >
+              Current Readings
+            </h2>
+            {lens.metrics.some((m) => m.feedId) && (
+              <span
+                className="font-data flex items-center gap-1"
+                style={{
+                  fontSize: "0.5rem",
+                  color: "rgba(74,222,128,0.5)",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 4,
+                    height: 4,
+                    borderRadius: "50%",
+                    background: "#4ade80",
+                    opacity: 0.7,
+                  }}
+                />
+                LIVE VIA FRED
+              </span>
+            )}
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3">
             {lens.metrics.map((m, i) => (
               <div
@@ -194,7 +217,7 @@ export default function LensDeepDive({
                 }
               >
                 <div
-                  className="font-data"
+                  className="font-data flex items-center gap-1.5"
                   style={{
                     fontSize: "0.55rem",
                     color: "rgba(232,224,212,0.3)",
@@ -203,6 +226,20 @@ export default function LensDeepDive({
                   }}
                 >
                   {m.label}
+                  {m.feedId && (
+                    <span
+                      title="Live data · FRED"
+                      style={{
+                        display: "inline-block",
+                        width: 5,
+                        height: 5,
+                        borderRadius: "50%",
+                        background: "#4ade80",
+                        animation: "liveDotPulse 3s ease-in-out infinite",
+                        flexShrink: 0,
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="flex items-baseline gap-2 mt-0.5">
                   <span
