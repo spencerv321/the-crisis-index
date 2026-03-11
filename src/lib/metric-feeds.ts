@@ -415,6 +415,14 @@ export async function refreshAllFeeds(): Promise<RefreshResult[]> {
         feedId: feed.feedId, // Mark as FRED-sourced
       };
 
+      // Update spectrum slider position to match new value
+      if (updatedMetric.spectrum) {
+        updatedMetric.spectrum = {
+          ...updatedMetric.spectrum,
+          val: transformed.num,
+        };
+      }
+
       // Update context if the feed provides a context update
       if (feed.contextUpdate) {
         const newContext = feed.contextUpdate(values);
