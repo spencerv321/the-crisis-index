@@ -12,18 +12,31 @@ function ShockEventItem({
 }) {
   const lens = lenses.find((l) => l.id === event.lens);
   const accent = lens?.tier === 1 ? "#c97f4a" : "#4a7c9e";
+  const deltaNum = Math.abs(parseInt(event.delta) || 0);
+  const isLarge = deltaNum >= 5;
 
   return (
     <div
-      className="flex gap-3 py-2.5"
-      style={{ borderBottom: "1px solid rgba(255,255,255,0.025)" }}
+      className="flex gap-3 py-3"
+      style={{
+        borderBottom: "1px solid rgba(255,255,255,0.025)",
+        ...(isLarge
+          ? {
+              background: `linear-gradient(90deg, ${accent}08, transparent)`,
+              borderLeft: `2px solid ${accent}`,
+              paddingLeft: 10,
+              marginLeft: -3,
+              borderRadius: 4,
+            }
+          : {}),
+      }}
     >
       <div className="flex-shrink-0 text-center" style={{ width: 46 }}>
         <div
           className="font-data"
           style={{
             fontSize: "0.6rem",
-            color: "rgba(232,224,212,0.25)",
+            color: "rgba(232,224,212,0.3)",
           }}
         >
           {event.date}
@@ -31,7 +44,7 @@ function ShockEventItem({
         <div
           className="font-data"
           style={{
-            fontSize: "0.8rem",
+            fontSize: isLarge ? "1rem" : "0.8rem",
             color: accent,
             fontWeight: 700,
           }}
@@ -53,9 +66,10 @@ function ShockEventItem({
         <div
           className="font-editorial"
           style={{
-            fontSize: "0.8rem",
-            color: "rgba(232,224,212,0.65)",
+            fontSize: isLarge ? "0.85rem" : "0.8rem",
+            color: isLarge ? "rgba(232,224,212,0.8)" : "rgba(232,224,212,0.65)",
             lineHeight: 1.4,
+            fontWeight: isLarge ? 500 : 400,
           }}
         >
           {event.event}
@@ -64,8 +78,8 @@ function ShockEventItem({
           className="font-data"
           style={{
             fontSize: "0.6rem",
-            color: "rgba(232,224,212,0.25)",
-            marginTop: 1,
+            color: "rgba(232,224,212,0.3)",
+            marginTop: 2,
           }}
         >
           {event.detail}

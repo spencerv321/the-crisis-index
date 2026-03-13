@@ -110,7 +110,9 @@ export default function CrisisIndex({ lenses, shockEvents, lastRefresh }: Props)
               marginBottom: 10,
             }}
           >
-            Updated March 2026
+            {lastRefresh
+              ? `Updated ${new Date(lastRefresh).toLocaleDateString("en-US", { month: "long", year: "numeric" })}`
+              : "Updated March 2026"}
           </div>
           <h1
             className="font-display"

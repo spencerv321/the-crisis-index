@@ -22,13 +22,13 @@ export default function SpectrumBar({
       <div className="flex justify-between mb-0.5">
         <span
           className="font-data"
-          style={{ fontSize: "0.5rem", color: "rgba(232,224,212,0.25)" }}
+          style={{ fontSize: "0.5rem", color: "rgba(232,224,212,0.38)" }}
         >
           {spec.leftLabel}
         </span>
         <span
           className="font-data"
-          style={{ fontSize: "0.5rem", color: "rgba(232,224,212,0.25)" }}
+          style={{ fontSize: "0.5rem", color: "rgba(232,224,212,0.38)" }}
         >
           {spec.rightLabel}
         </span>

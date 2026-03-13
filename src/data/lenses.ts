@@ -16,6 +16,8 @@ export interface Metric {
   invert?: boolean;
   /** Set by FRED auto-refresh — indicates this metric has a live data source */
   feedId?: string;
+  /** Thematic cluster label for visual grouping within a lens panel */
+  group?: string;
 }
 
 export interface Lens {
@@ -52,6 +54,7 @@ export const LENSES: Lens[] = [
         value: "51.8%",
         num: 51.8,
         context: "of all US household wealth",
+        group: "Wealth Transfer",
         spectrum: {
           min: 30,
           max: 60,
@@ -78,6 +81,7 @@ export const LENSES: Lens[] = [
         value: "19%",
         num: 19,
         context: "Gallup 2025 — lowest cohort",
+        group: "Institutional Trust",
         spectrum: {
           min: 0,
           max: 80,
@@ -118,6 +122,7 @@ export const LENSES: Lens[] = [
         value: "31.2%",
         num: 31.2,
         context: "Fed DFA — near record concentration",
+        group: "Concentration",
         spectrum: {
           min: 20,
           max: 40,
@@ -164,6 +169,7 @@ export const LENSES: Lens[] = [
         num: 36.2,
         context: "up $11T in 4 years",
         big: true,
+        group: "Federal Debt",
       },
       {
         label: "Debt-to-GDP",
@@ -196,6 +202,7 @@ export const LENSES: Lens[] = [
         value: "$1.85T",
         num: 1.85,
         context: "leveraged hedge fund positions — up $1T since 2022",
+        group: "Market Fragility",
         spectrum: {
           min: 0,
           max: 3,
@@ -235,6 +242,7 @@ export const LENSES: Lens[] = [
         value: "0.49",
         num: 0.49,
         context: "Census — highest since tracking began",
+        group: "Inequality",
         spectrum: {
           min: 0.3,
           max: 0.55,
@@ -280,6 +288,7 @@ export const LENSES: Lens[] = [
         num: 3118,
         context: "was $1,959 in Sept 2020 — up 59%",
         big: true,
+        group: "Monetary Signal",
       },
       {
         label: "Real interest rate",
@@ -312,6 +321,7 @@ export const LENSES: Lens[] = [
         value: "+4.8% YoY",
         num: 4.8,
         context: "while Fed balance sheet shrinks — Napier's signal",
+        group: "Credit Regime",
         spectrum: {
           min: -2,
           max: 10,
@@ -351,6 +361,7 @@ export const LENSES: Lens[] = [
         value: "$3.63/gal",
         num: 3.63,
         context: "EIA weekly retail avg — consumer-facing inflation",
+        group: "Consumer Impact",
         spectrum: {
           min: 2,
           max: 6,
@@ -384,6 +395,7 @@ export const LENSES: Lens[] = [
         value: "−42% from peak",
         num: -42,
         context: "WCLD ETF — cloud/SaaS sector performance",
+        group: "Destruction",
         spectrum: {
           min: -70,
           max: 20,
@@ -410,6 +422,7 @@ export const LENSES: Lens[] = [
         value: "72%",
         num: 72,
         context: "McKinsey 2025 — was 55% in 2023",
+        group: "Acceleration",
         spectrum: {
           min: 0,
           max: 100,
@@ -468,6 +481,7 @@ export const LENSES: Lens[] = [
         num: 205,
         context: "CDC — tripled since late 1990s",
         big: true,
+        group: "Social Collapse",
       },
       {
         label: "Teen socializing (face-to-face)",
@@ -500,6 +514,7 @@ export const LENSES: Lens[] = [
         value: "22%",
         num: 22,
         context: "Gallup — near all-time low",
+        group: "Institutional Erosion",
         spectrum: {
           min: 0,
           max: 80,
@@ -539,6 +554,7 @@ export const LENSES: Lens[] = [
         label: "Churchgoing adults",
         value: "30%",
         num: 30,
+        group: "Community Loss",
         context: "Gallup — was 70% in 1999",
         spectrum: {
           min: 10,
@@ -572,6 +588,7 @@ export const LENSES: Lens[] = [
         num: 1136,
         context: "World Gold Council 2025 — 3rd record year",
         big: true,
+        group: "Conflict & Mobilization",
       },
       {
         label: "Global defense spending",
@@ -604,6 +621,7 @@ export const LENSES: Lens[] = [
         value: "20.5M bbl/day",
         num: 20.5,
         context: "~20% of global oil through one chokepoint",
+        group: "Energy Vulnerability",
         spectrum: {
           min: 10,
           max: 25,
@@ -631,6 +649,7 @@ export const LENSES: Lens[] = [
         value: "−22% from peak",
         num: -22,
         context: "decoupling accelerating since 2022",
+        group: "Power Shift",
         spectrum: {
           min: -50,
           max: 10,

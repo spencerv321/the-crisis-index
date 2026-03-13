@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import type { Lens } from "@/data/lenses";
 import ScoreRing from "./ScoreRing";
@@ -85,9 +85,31 @@ export default function DimensionPanel({
       {/* Metrics grid */}
       <div className="px-5 pb-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3">
-          {lens.metrics.map((m, i) => (
+          {lens.metrics.map((m, i) => {
+            // Render group subheading when group changes
+            const prevGroup = i > 0 ? lens.metrics[i - 1].group : undefined;
+            const showGroup = m.group && m.group !== prevGroup;
+
+            return (
+            <React.Fragment key={i}>
+              {showGroup && (
+                <div
+                  className="sm:col-span-2 font-data"
+                  style={{
+                    fontSize: "0.5rem",
+                    color: accent,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    opacity: 0.5,
+                    marginTop: i > 0 ? 8 : 0,
+                    paddingBottom: 2,
+                    borderBottom: `1px solid ${accentBg}0.08)`,
+                  }}
+                >
+                  {m.group}
+                </div>
+              )}
             <div
-              key={i}
               className={
                 m.big ? "sm:col-span-2 p-3 rounded-lg mb-1" : ""
               }
@@ -104,7 +126,7 @@ export default function DimensionPanel({
                 className="font-data flex items-center gap-1.5"
                 style={{
                   fontSize: "0.55rem",
-                  color: "rgba(232,224,212,0.3)",
+                  color: "rgba(232,224,212,0.4)",
                   letterSpacing: "0.04em",
                   textTransform: "uppercase",
                 }}
@@ -139,8 +161,8 @@ export default function DimensionPanel({
                 <span
                   className="font-data"
                   style={{
-                    fontSize: "0.55rem",
-                    color: "rgba(232,224,212,0.25)",
+                    fontSize: "0.6rem",
+                    color: "rgba(232,224,212,0.38)",
                   }}
                 >
                   {m.context}
@@ -154,7 +176,9 @@ export default function DimensionPanel({
                 />
               )}
             </div>
-          ))}
+            </React.Fragment>
+            );
+          })}
         </div>
 
         {/* Sparkline */}
@@ -165,43 +189,64 @@ export default function DimensionPanel({
         />
       </div>
 
-      {/* Expandable editorial */}
-      <div
-        className="overflow-hidden transition-all duration-500"
-        style={{
-          maxHeight: expanded ? 400 : 0,
-          opacity: expanded ? 1 : 0,
-        }}
-      >
-        <div
-          className="px-5 pb-4 pt-3"
-          style={{ borderTop: `1px solid ${accentBg}0.08)` }}
-        >
-          <p
-            className="font-editorial"
-            style={{
-              fontSize: "0.85rem",
-              lineHeight: 1.75,
-              color: "rgba(232,224,212,0.65)",
-              fontStyle: "italic",
-            }}
+      {/* Editorial — first sentence always visible as hook */}
+      {(() => {
+        const firstSentence = lens.editorial.split(/(?<=[.!?])\s+/)[0] || lens.editorial;
+        const rest = lens.editorial.slice(firstSentence.length).trim();
+        return (
+          <div
+            className="px-5 pb-2 pt-3 cursor-pointer"
+            style={{ borderTop: `1px solid ${accentBg}0.06)` }}
+            onClick={() => setExpanded(!expanded)}
           >
-            {lens.editorial}
-          </p>
-          <Link
-            href={`/lens/${lens.id}`}
-            className="font-data inline-block mt-3 transition-opacity duration-300 hover:opacity-80"
-            style={{
-              fontSize: "0.6rem",
-              color: accent,
-              letterSpacing: "0.06em",
-              textDecoration: "none",
-            }}
-          >
-            READ THE FULL DEEP DIVE &rarr;
-          </Link>
-        </div>
-      </div>
+            <p
+              className="font-editorial"
+              style={{
+                fontSize: "0.82rem",
+                lineHeight: 1.7,
+                color: "rgba(232,224,212,0.5)",
+                fontStyle: "italic",
+              }}
+            >
+              {firstSentence}
+              {!expanded && rest && (
+                <span style={{ color: accent, opacity: 0.5 }}> …</span>
+              )}
+            </p>
+            <div
+              className="overflow-hidden transition-all duration-500"
+              style={{
+                maxHeight: expanded ? 500 : 0,
+                opacity: expanded ? 1 : 0,
+              }}
+            >
+              <p
+                className="font-editorial mt-2"
+                style={{
+                  fontSize: "0.82rem",
+                  lineHeight: 1.7,
+                  color: "rgba(232,224,212,0.5)",
+                  fontStyle: "italic",
+                }}
+              >
+                {rest}
+              </p>
+              <Link
+                href={`/lens/${lens.id}`}
+                className="font-data inline-block mt-3 transition-opacity duration-300 hover:opacity-80"
+                style={{
+                  fontSize: "0.6rem",
+                  color: accent,
+                  letterSpacing: "0.06em",
+                  textDecoration: "none",
+                }}
+              >
+                READ THE FULL DEEP DIVE &rarr;
+              </Link>
+            </div>
+          </div>
+        );
+      })()}
       <div
         className="pb-3 text-center cursor-pointer"
         onClick={() => setExpanded(!expanded)}
@@ -210,11 +255,11 @@ export default function DimensionPanel({
           className="font-data"
           style={{
             fontSize: "0.55rem",
-            color: accentBg + "0.3)",
+            color: accentBg + "0.4)",
             letterSpacing: "0.08em",
           }}
         >
-          {expanded ? "COLLAPSE ▲" : "READ ANALYSIS ▼"}
+          {expanded ? "COLLAPSE ▲" : "READ MORE ▼"}
         </span>
       </div>
     </div>
