@@ -1118,7 +1118,7 @@
       <div class="refresh-header">
         <div class="refresh-title">
           <h3>Auto-Update Metrics</h3>
-          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">23 metrics tracked (FRED + World Bank + IMF + BLS + EIA + Treasury + Yahoo)</span>
+          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">26 metrics tracked (FRED + EIA + World Bank + IMF + BLS + Treasury + Yahoo)</span>
         </div>
         <button class="btn-refresh-data" id="btn-refresh-data" onclick="handleRefreshData()">
           <span class="icon">&#x21bb;</span>
@@ -1739,9 +1739,9 @@
 
   // ── Updated renderLenses with live indicators ──
   const LIVE_METRICS = {
-    'repression': ['Gold price', 'Real interest rate', '10Y yield vs. CPI', 'Bank credit growth', '5Y inflation breakeven', 'Fed balance sheet'],
+    'repression': ['Gold price', 'Real interest rate', '10Y yield vs. CPI', 'Bank credit growth', '5Y inflation breakeven', 'Fed balance sheet', 'US gasoline price'],
     'debt': ['US National Debt', 'Debt-to-GDP', 'Interest cost / revenue', 'Gini coefficient', 'Home price / income', 'Dollar reserve share'],
-    'geopolitical': ['US Strategic Petroleum Reserve', 'US-China trade volume', 'BRICS GDP share (PPP)', 'Global defense spending', 'Strait of Hormuz oil transit'],
+    'geopolitical': ['US Strategic Petroleum Reserve', 'US-China trade volume', 'BRICS GDP share (PPP)', 'Global defense spending', 'Strait of Hormuz oil transit', 'WTI crude oil price', 'US crude oil production'],
     'generational': ['Gen Z labor participation', 'Top 1% wealth share', 'Bottom 50% wealth share'],
     'ai': ['Cloud index vs. peak', 'Job openings YoY']
   };

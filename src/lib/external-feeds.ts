@@ -350,6 +350,127 @@ async function fetchPersianGulfExports(): Promise<{
   }
 }
 
+// ── EIA: WTI Crude Oil Spot Price (daily) ─────────────────────
+
+async function fetchWTIPrice(): Promise<{
+  price: number;
+  date: string;
+} | null> {
+  try {
+    const apiKey = process.env.EIA_API_KEY;
+    if (!apiKey) return null;
+
+    const url = `https://api.eia.gov/v2/petroleum/pri/spt/data/?api_key=${apiKey}&frequency=daily&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=desc&length=1`;
+    const res = await fetch(url, { next: { revalidate: 0 } });
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as {
+      response: { data: { period: string; value: number }[] };
+    };
+
+    const entry = data.response?.data?.[0];
+    if (!entry?.value) return null;
+
+    return { price: entry.value, date: entry.period };
+  } catch (err) {
+    console.error("[ExternalFeeds] WTI price error:", err);
+    return null;
+  }
+}
+
+// ── EIA: US Retail Gasoline Price (weekly) ────────────────────
+
+async function fetchGasolinePrice(): Promise<{
+  price: number;
+  date: string;
+} | null> {
+  try {
+    const apiKey = process.env.EIA_API_KEY;
+    if (!apiKey) return null;
+
+    const url = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${apiKey}&frequency=weekly&data[0]=value&facets[product][]=EPM0&facets[duoarea][]=NUS&sort[0][column]=period&sort[0][direction]=desc&length=1`;
+    const res = await fetch(url, { next: { revalidate: 0 } });
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as {
+      response: { data: { period: string; value: number }[] };
+    };
+
+    const entry = data.response?.data?.[0];
+    if (!entry?.value) return null;
+
+    return { price: entry.value, date: entry.period };
+  } catch (err) {
+    console.error("[ExternalFeeds] Gasoline price error:", err);
+    return null;
+  }
+}
+
+// ── EIA: SPR Weekly Stocks ────────────────────────────────────
+
+async function fetchSPRWeekly(): Promise<{
+  millionBbl: number;
+  date: string;
+} | null> {
+  try {
+    const apiKey = process.env.EIA_API_KEY;
+    if (!apiKey) return null;
+
+    const url = `https://api.eia.gov/v2/petroleum/stoc/wstk/data/?api_key=${apiKey}&frequency=weekly&data[0]=value&facets[product][]=EPC0&facets[process][]=SAE&sort[0][column]=period&sort[0][direction]=desc&length=1`;
+    const res = await fetch(url, { next: { revalidate: 0 } });
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as {
+      response: { data: { period: string; value: number }[] };
+    };
+
+    const entry = data.response?.data?.[0];
+    if (!entry?.value) return null;
+
+    return { millionBbl: entry.value / 1000, date: entry.period };
+  } catch (err) {
+    console.error("[ExternalFeeds] SPR weekly error:", err);
+    return null;
+  }
+}
+
+// ── EIA: US Crude Oil Production (monthly) ────────────────────
+
+async function fetchUSCrudeProduction(): Promise<{
+  millionBblDay: number;
+  period: string;
+} | null> {
+  try {
+    const apiKey = process.env.EIA_API_KEY;
+    if (!apiKey) return null;
+
+    // Monthly field production (thousand bbl/day)
+    const url = `https://api.eia.gov/v2/petroleum/crd/crpdn/data/?api_key=${apiKey}&frequency=monthly&data[0]=value&facets[duoarea][]=NUS&facets[product][]=EPC0&sort[0][column]=period&sort[0][direction]=desc&length=2`;
+    const res = await fetch(url, { next: { revalidate: 0 } });
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as {
+      response: { data: { period: string; value: number }[] };
+    };
+
+    const entries = data.response?.data;
+    if (!entries?.length) return null;
+
+    // There are two rows per month (different product breakdowns)
+    // Find the one that looks like a per-day figure (< 20,000 K bbl/day)
+    const perDay = entries.find((e) => e.value < 20000 && e.value > 5000);
+    if (!perDay) return null;
+
+    return {
+      millionBblDay: perDay.value / 1000,
+      period: perDay.period,
+    };
+  } catch (err) {
+    console.error("[ExternalFeeds] US production error:", err);
+    return null;
+  }
+}
+
 // ── External Feed Definitions ─────────────────────────────────
 
 interface ExternalFeedDef {
@@ -403,6 +524,48 @@ const EXTERNAL_FEEDS: ExternalFeedDef[] = [
       };
     },
   },
+  {
+    feedId: "wti-crude",
+    lensId: "geopolitical",
+    metricLabel: "WTI crude oil price",
+    fetch: async () => {
+      const data = await fetchWTIPrice();
+      if (!data) return null;
+      return {
+        value: `$${data.price.toFixed(2)}/bbl`,
+        num: parseFloat(data.price.toFixed(2)),
+        context: `EIA daily spot — ${data.date}`,
+      };
+    },
+  },
+  {
+    feedId: "spr-weekly",
+    lensId: "geopolitical",
+    metricLabel: "US Strategic Petroleum Reserve",
+    fetch: async () => {
+      const data = await fetchSPRWeekly();
+      if (!data) return null;
+      return {
+        value: `${data.millionBbl.toFixed(0)}M bbl`,
+        num: parseFloat(data.millionBbl.toFixed(0)),
+        context: `EIA weekly stocks — ${data.date}`,
+      };
+    },
+  },
+  {
+    feedId: "us-crude-production",
+    lensId: "geopolitical",
+    metricLabel: "US crude oil production",
+    fetch: async () => {
+      const data = await fetchUSCrudeProduction();
+      if (!data) return null;
+      return {
+        value: `${data.millionBblDay.toFixed(1)}M bbl/day`,
+        num: parseFloat(data.millionBblDay.toFixed(1)),
+        context: `EIA monthly — ${data.period}`,
+      };
+    },
+  },
 
   // ── Debt ──
   {
@@ -430,6 +593,22 @@ const EXTERNAL_FEEDS: ExternalFeedDef[] = [
         value: `$${data.totalTrillions.toFixed(1)}T`,
         num: parseFloat(data.totalTrillions.toFixed(1)),
         context: `Treasury Fiscal Data — daily (${data.date})`,
+      };
+    },
+  },
+
+  // ── Financial Repression ──
+  {
+    feedId: "gasoline-price",
+    lensId: "repression",
+    metricLabel: "US gasoline price",
+    fetch: async () => {
+      const data = await fetchGasolinePrice();
+      if (!data) return null;
+      return {
+        value: `$${data.price.toFixed(2)}/gal`,
+        num: parseFloat(data.price.toFixed(2)),
+        context: `EIA weekly retail avg — ${data.date}`,
       };
     },
   },

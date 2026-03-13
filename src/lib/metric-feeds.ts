@@ -233,43 +233,7 @@ export const FEED_DEFINITIONS: FeedDefinition[] = [
 
   // ── Geopolitical Fracture ──────────────────────────────────
 
-  {
-    feedId: "spr-levels",
-    lensId: "geopolitical",
-    metricLabel: "US Strategic Petroleum Reserve",
-    fredSeries: ["WCSSTUS1"],
-    transform: (values) => {
-      const spr = values.get("WCSSTUS1");
-      if (!spr) return null;
-      // WCSSTUS1 is in thousands of barrels, convert to millions
-      const millions = Math.round(spr.value / 1000);
-      return {
-        value: `${millions}M bbl`,
-        num: millions,
-      };
-    },
-    contextUpdate: (values) => {
-      const spr = values.get("WCSSTUS1");
-      if (!spr) return undefined;
-      const millions = Math.round(spr.value / 1000);
-      if (millions < 400) return `lowest since 1984 — down from 638M in 2020`;
-      if (millions < 500) return `well below pre-drawdown levels of 638M`;
-      return `${millions}M barrels in reserve`;
-    },
-  },
-
-  {
-    feedId: "wti-oil-price",
-    lensId: "geopolitical",
-    metricLabel: "Strait of Hormuz oil transit",
-    fredSeries: ["DCOILWTICO"],
-    transform: () => {
-      // Oil transit volume doesn't change from WTI price
-      // But we track WTI as context — don't override the transit metric value
-      return null;
-    },
-    // We use this feed just to track oil price in context, not to update the metric value
-  },
+  // SPR and WTI now sourced from EIA API (external-feeds.ts) — more direct, more frequent
 
   {
     feedId: "us-china-imports",
