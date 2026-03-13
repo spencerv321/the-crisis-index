@@ -675,6 +675,17 @@ async function logRefresh(results: RefreshResult[]): Promise<void> {
   const updated = results.filter((r) => r.status === "updated").length;
   const errors = results.filter((r) => r.status === "error").length;
 
+  // Ensure table exists (no-op if already created)
+  await query(`
+    CREATE TABLE IF NOT EXISTS feed_log (
+      id SERIAL PRIMARY KEY,
+      refreshed_at TIMESTAMPTZ DEFAULT NOW(),
+      metrics_updated INT DEFAULT 0,
+      metrics_errored INT DEFAULT 0,
+      results_json JSONB
+    )
+  `);
+
   await query(
     `INSERT INTO feed_log (metrics_updated, metrics_errored, results_json)
      VALUES ($1, $2, $3)`,
