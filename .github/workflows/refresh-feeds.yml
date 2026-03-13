@@ -1,0 +1,21 @@
+name: Refresh Data Feeds
+on:
+  schedule:
+    - cron: '0 10 * * *' # Daily at 10am UTC (6am ET)
+  workflow_dispatch: {} # Manual trigger from GitHub Actions tab
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger FRED data refresh
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            https://thecrisisindex.com/api/admin/refresh-data \
+            -H "Authorization: Bearer ${{ secrets.ANALYTICS_TOKEN }}" \
+            -H "Content-Type: application/json")
+          echo "Response code: $response"
+          if [ "$response" != "200" ]; then
+            echo "Refresh failed with status $response"
+            exit 1
+          fi

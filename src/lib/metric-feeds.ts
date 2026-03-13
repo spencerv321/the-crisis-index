@@ -375,6 +375,107 @@ export const FEED_DEFINITIONS: FeedDefinition[] = [
           : "below historical norms";
     },
   },
+
+  {
+    feedId: "top-1-wealth",
+    lensId: "generational",
+    metricLabel: "Top 1% wealth share",
+    fredSeries: ["WFRBST01134"],
+    transform: (values) => {
+      const share = values.get("WFRBST01134");
+      if (!share) return null;
+      return {
+        value: `${share.value.toFixed(1)}%`,
+        num: parseFloat(share.value.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const share = values.get("WFRBST01134");
+      if (!share) return undefined;
+      return share.value >= 30
+        ? "Fed DFA — near record concentration"
+        : "Fed DFA — elevated but below peak";
+    },
+  },
+
+  {
+    feedId: "bottom-50-wealth",
+    lensId: "generational",
+    metricLabel: "Bottom 50% wealth share",
+    fredSeries: ["WFRBSB50215"],
+    transform: (values) => {
+      const share = values.get("WFRBSB50215");
+      if (!share) return null;
+      return {
+        value: `${share.value.toFixed(1)}%`,
+        num: parseFloat(share.value.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const share = values.get("WFRBSB50215");
+      if (!share) return undefined;
+      return share.value <= 3
+        ? "Fed DFA — half the country owns almost nothing"
+        : `Fed DFA — slight improvement from historic lows`;
+    },
+  },
+
+  // ── Financial Repression (additional) ────────────────────────
+
+  {
+    feedId: "fed-balance-sheet",
+    lensId: "repression",
+    metricLabel: "Fed balance sheet",
+    fredSeries: ["WALCL"],
+    transform: (values) => {
+      const assets = values.get("WALCL");
+      if (!assets) return null;
+      // WALCL is in millions
+      const trillions = assets.value / 1_000_000;
+      return {
+        value: `$${trillions.toFixed(1)}T`,
+        num: parseFloat(trillions.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const assets = values.get("WALCL");
+      if (!assets) return undefined;
+      const trillions = assets.value / 1_000_000;
+      if (trillions < 7) return "WALCL — QT accelerating, down from $9T peak";
+      if (trillions < 8) return "WALCL — down from $9T peak, QT ongoing";
+      return "WALCL — near peak levels";
+    },
+  },
+
+  // ── Debt Supercycle (additional) ─────────────────────────────
+
+  {
+    feedId: "home-price-income",
+    lensId: "debt",
+    metricLabel: "Home price / income",
+    fredSeries: ["MSPUS", "MEHOINUSA672N"],
+    transform: (values) => {
+      const price = values.get("MSPUS");
+      const income = values.get("MEHOINUSA672N");
+      if (!price || !income || income.value === 0) return null;
+      const ratio = price.value / income.value;
+      return {
+        value: `${ratio.toFixed(1)}×`,
+        num: parseFloat(ratio.toFixed(1)),
+      };
+    },
+    contextUpdate: (values) => {
+      const price = values.get("MSPUS");
+      const income = values.get("MEHOINUSA672N");
+      if (!price || !income || income.value === 0) return undefined;
+      const ratio = price.value / income.value;
+      return ratio >= 7
+        ? `historical average: 3.5×`
+        : ratio >= 5
+          ? "above historical average of 3.5×"
+          : "approaching historical norms";
+    },
+  },
 ];
 
 // ── Refresh Engine ────────────────────────────────────────────
