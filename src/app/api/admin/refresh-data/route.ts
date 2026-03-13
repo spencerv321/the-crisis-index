@@ -5,10 +5,11 @@ import {
   getRefreshLogs,
   getLastRefreshTime,
 } from "@/lib/metric-feeds";
+import { refreshExternalFeeds } from "@/lib/external-feeds";
 
 /**
  * POST /api/admin/refresh-data
- * Triggers a FRED data refresh for all configured metric feeds.
+ * Triggers a data refresh for all configured feeds (FRED + external APIs).
  * Returns a summary of what was updated.
  */
 export async function POST(request: NextRequest) {
@@ -17,8 +18,12 @@ export async function POST(request: NextRequest) {
 
   try {
     console.log("[RefreshData] Starting FRED data refresh...");
-    const results = await refreshAllFeeds();
+    const fredResults = await refreshAllFeeds();
 
+    console.log("[RefreshData] Starting external API refresh...");
+    const externalResults = await refreshExternalFeeds();
+
+    const results = [...fredResults, ...externalResults];
     const updated = results.filter((r) => r.status === "updated");
     const errors = results.filter((r) => r.status === "error");
     const unchanged = results.filter((r) => r.status === "unchanged");

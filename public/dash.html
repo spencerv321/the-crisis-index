@@ -1117,8 +1117,8 @@
     <div class="refresh-section">
       <div class="refresh-header">
         <div class="refresh-title">
-          <h3>Auto-Update Metrics from FRED</h3>
-          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">16 metrics tracked</span>
+          <h3>Auto-Update Metrics</h3>
+          <span id="feed-count" style="font-family:var(--font-data);font-size:11px;color:var(--text-dimmer);">23 metrics tracked (FRED + World Bank + IMF + BLS + EIA + Treasury + Yahoo)</span>
         </div>
         <button class="btn-refresh-data" id="btn-refresh-data" onclick="handleRefreshData()">
           <span class="icon">&#x21bb;</span>
@@ -1740,9 +1740,10 @@
   // ── Updated renderLenses with live indicators ──
   const LIVE_METRICS = {
     'repression': ['Gold price', 'Real interest rate', '10Y yield vs. CPI', 'Bank credit growth', '5Y inflation breakeven', 'Fed balance sheet'],
-    'debt': ['US National Debt', 'Debt-to-GDP', 'Interest cost / revenue', 'Gini coefficient', 'Home price / income'],
-    'geopolitical': ['US Strategic Petroleum Reserve', 'US-China trade volume'],
-    'generational': ['Gen Z labor participation', 'Top 1% wealth share', 'Bottom 50% wealth share']
+    'debt': ['US National Debt', 'Debt-to-GDP', 'Interest cost / revenue', 'Gini coefficient', 'Home price / income', 'Dollar reserve share'],
+    'geopolitical': ['US Strategic Petroleum Reserve', 'US-China trade volume', 'BRICS GDP share (PPP)', 'Global defense spending', 'Strait of Hormuz oil transit'],
+    'generational': ['Gen Z labor participation', 'Top 1% wealth share', 'Bottom 50% wealth share'],
+    'ai': ['Cloud index vs. peak', 'Job openings YoY']
   };
 
   function isLiveMetric(lensId, metricLabel) {
