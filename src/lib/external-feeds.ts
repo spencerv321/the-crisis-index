@@ -365,13 +365,13 @@ async function fetchWTIPrice(): Promise<{
     if (!res.ok) return null;
 
     const data = (await res.json()) as {
-      response: { data: { period: string; value: number }[] };
+      response: { data: { period: string; value: string | number }[] };
     };
 
     const entry = data.response?.data?.[0];
-    if (!entry?.value) return null;
+    if (entry?.value == null) return null;
 
-    return { price: entry.value, date: entry.period };
+    return { price: parseFloat(String(entry.value)), date: entry.period };
   } catch (err) {
     console.error("[ExternalFeeds] WTI price error:", err);
     return null;
@@ -393,13 +393,13 @@ async function fetchGasolinePrice(): Promise<{
     if (!res.ok) return null;
 
     const data = (await res.json()) as {
-      response: { data: { period: string; value: number }[] };
+      response: { data: { period: string; value: string | number }[] };
     };
 
     const entry = data.response?.data?.[0];
-    if (!entry?.value) return null;
+    if (entry?.value == null) return null;
 
-    return { price: entry.value, date: entry.period };
+    return { price: parseFloat(String(entry.value)), date: entry.period };
   } catch (err) {
     console.error("[ExternalFeeds] Gasoline price error:", err);
     return null;
@@ -421,13 +421,13 @@ async function fetchSPRWeekly(): Promise<{
     if (!res.ok) return null;
 
     const data = (await res.json()) as {
-      response: { data: { period: string; value: number }[] };
+      response: { data: { period: string; value: string | number }[] };
     };
 
     const entry = data.response?.data?.[0];
-    if (!entry?.value) return null;
+    if (entry?.value == null) return null;
 
-    return { millionBbl: entry.value / 1000, date: entry.period };
+    return { millionBbl: parseFloat(String(entry.value)) / 1000, date: entry.period };
   } catch (err) {
     console.error("[ExternalFeeds] SPR weekly error:", err);
     return null;
@@ -450,7 +450,7 @@ async function fetchUSCrudeProduction(): Promise<{
     if (!res.ok) return null;
 
     const data = (await res.json()) as {
-      response: { data: { period: string; value: number }[] };
+      response: { data: { period: string; value: string | number }[] };
     };
 
     const entries = data.response?.data;
@@ -458,11 +458,14 @@ async function fetchUSCrudeProduction(): Promise<{
 
     // There are two rows per month (different product breakdowns)
     // Find the one that looks like a per-day figure (< 20,000 K bbl/day)
-    const perDay = entries.find((e) => e.value < 20000 && e.value > 5000);
+    const perDay = entries.find((e) => {
+      const v = parseFloat(String(e.value));
+      return v < 20000 && v > 5000;
+    });
     if (!perDay) return null;
 
     return {
-      millionBblDay: perDay.value / 1000,
+      millionBblDay: parseFloat(String(perDay.value)) / 1000,
       period: perDay.period,
     };
   } catch (err) {
