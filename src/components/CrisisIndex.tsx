@@ -15,9 +15,10 @@ import EmailCapture from "./EmailCapture";
 interface Props {
   lenses?: Lens[];
   shockEvents?: ShockEvent[];
+  lastRefresh?: string | null;
 }
 
-export default function CrisisIndex({ lenses, shockEvents }: Props) {
+export default function CrisisIndex({ lenses, shockEvents, lastRefresh }: Props) {
   const LENSES = lenses || STATIC_LENSES;
   const events = shockEvents || STATIC_EVENTS;
 
@@ -181,6 +182,24 @@ export default function CrisisIndex({ lenses, shockEvents }: Props) {
               >
                 Toggle lenses below to build your view.
               </p>
+            )}
+            {lastRefresh && (
+              <div
+                className="font-data"
+                style={{
+                  fontSize: "0.65rem",
+                  color: "rgba(232,224,212,0.25)",
+                  marginTop: 8,
+                  letterSpacing: "0.04em",
+                }}
+              >
+                Data as of{" "}
+                {new Date(lastRefresh).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </div>
             )}
           </div>
         </section>
