@@ -394,6 +394,15 @@ export default function CrisisIndex({ lenses, shockEvents, lastRefresh }: Props)
               </span>
             </div>
             <div>
+              <a
+                href="https://arewecooked.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "rgba(201,127,74,0.3)", textDecoration: "none" }}
+              >
+                arewecooked.io
+              </a>{" "}
+              ·{" "}
               <span style={{ color: "rgba(201,127,74,0.3)" }}>
                 amicooked.io
               </span>{" "}
