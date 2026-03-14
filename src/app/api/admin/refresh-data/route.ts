@@ -6,6 +6,7 @@ import {
   getLastRefreshTime,
 } from "@/lib/metric-feeds";
 import { refreshExternalFeeds } from "@/lib/external-feeds";
+import { refreshCookedFeeds } from "@/lib/cooked-feeds";
 
 /**
  * POST /api/admin/refresh-data
@@ -23,7 +24,13 @@ export async function POST(request: NextRequest) {
     console.log("[RefreshData] Starting external API refresh...");
     const externalResults = await refreshExternalFeeds();
 
+    console.log("[RefreshData] Starting cooked metrics refresh...");
+    const cookedResults = await refreshCookedFeeds();
+
     const results = [...fredResults, ...externalResults];
+    const cookedCount = cookedResults.filter(
+      (r) => r.status === "updated"
+    ).length;
     const updated = results.filter((r) => r.status === "updated");
     const errors = results.filter((r) => r.status === "error");
     const unchanged = results.filter((r) => r.status === "unchanged");
@@ -31,6 +38,9 @@ export async function POST(request: NextRequest) {
 
     console.log(
       `[RefreshData] Done: ${updated.length} updated, ${unchanged.length} unchanged, ${skipped.length} skipped, ${errors.length} errors`
+    );
+    console.log(
+      `[RefreshData] Cooked metrics: ${cookedCount} updated`
     );
 
     return NextResponse.json({
@@ -40,8 +50,10 @@ export async function POST(request: NextRequest) {
         unchanged: unchanged.length,
         skipped: skipped.length,
         errors: errors.length,
+        cookedUpdated: cookedCount,
       },
       results,
+      cookedResults,
       refreshedAt: new Date().toISOString(),
     });
   } catch (err) {

@@ -105,6 +105,28 @@ export async function initSchema(): Promise<void> {
         metrics_errored INT DEFAULT 0,
         results_json JSONB
       );
+
+      CREATE TABLE IF NOT EXISTS cooked_metrics (
+        id TEXT PRIMARY KEY,
+        bucket TEXT NOT NULL,
+        label TEXT NOT NULL,
+        value TEXT,
+        num DECIMAL,
+        spectrum_min DECIMAL,
+        spectrum_max DECIMAL,
+        invert BOOLEAN DEFAULT FALSE,
+        feed_id TEXT,
+        source_label TEXT,
+        updated_at TIMESTAMPTZ DEFAULT NOW(),
+        data_date TEXT
+      );
+
+      CREATE TABLE IF NOT EXISTS cooked_scores (
+        id SERIAL PRIMARY KEY,
+        score DECIMAL NOT NULL,
+        bucket_scores JSONB NOT NULL,
+        recorded_at TIMESTAMPTZ DEFAULT NOW()
+      );
     `);
 
     console.log("[DB] Schema initialized");
