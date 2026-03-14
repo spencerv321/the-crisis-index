@@ -359,6 +359,31 @@ const COOKED_FEEDS: CookedMetricDef[] = [
       };
     },
   },
+
+  // ── Daily Pulse (updates every trading day) ──
+
+  {
+    id: "sp500",
+    bucket: "inequality",
+    label: "S&P 500",
+    spectrumMin: 3500,
+    spectrumMax: 6500,
+    invert: false, // higher = more disconnect from Main St = more cooked
+    sourceLabel: "Yahoo Finance",
+    fetch: async () => {
+      const data = await fetchSP500();
+      if (!data) return null;
+      const formatted = data.price.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
+      return {
+        value: formatted,
+        num: data.price,
+        dataDate: new Date().toISOString().split("T")[0],
+      };
+    },
+  },
 ];
 
 // ── Refresh Engine ────────────────────────────────────────────
@@ -539,6 +564,28 @@ export const SHARED_METRICS = [
     spectrumMax: 20,
     invert: true, // positive YoY = less cooked
   },
+  // ── Daily Pulse (shared from Crisis Index, update every trading day) ──
+  {
+    lensId: "repression",
+    metricLabel: "Gold price",
+    cookedId: "gold-price",
+    bucket: "inequality" as const,
+    label: "Gold price",
+    spectrumMin: 1500,
+    spectrumMax: 4000,
+    invert: false, // higher gold = more flight to safety = more cooked
+  },
+  {
+    lensId: "repression",
+    metricLabel: "10Y yield vs. CPI",
+    cookedId: "10y-yield",
+    bucket: "affordability" as const,
+    label: "10Y Treasury yield",
+    spectrumMin: 1,
+    spectrumMax: 6,
+    invert: false, // higher yield = higher mortgage rates = more cooked
+  },
+
   {
     lensId: "generational",
     metricLabel: "Top 1% wealth share",
